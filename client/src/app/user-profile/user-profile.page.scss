@@ -1,0 +1,356 @@
+$primary-green: #22c55e;
+$bg: #f5f7fb;
+$text: #111827;
+$muted: #9ca3af;
+
+:host {
+  --ion-background-color: #{$bg};
+}
+
+/* Header */
+.profile-header {
+  --box-shadow: none;
+}
+
+.profile-toolbar {
+  --background: #{$bg};
+  --border-width: 0;
+  padding: 6px 12px 2px;
+
+  ion-title {
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 0.2px;
+    color: $text;
+    text-align: center;
+  }
+
+  ion-button {
+    --padding-start: 8px;
+    --padding-end: 8px;
+    --border-radius: 999px;
+  }
+
+  ion-icon {
+    font-size: 22px;
+    color: $text;
+  }
+}
+
+.profile-content {
+  --background: #f4f5f8;
+
+  .content-inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin-top: 20px;
+    gap: 30px; // Provide space between elements
+  }
+}
+
+.web-version-banner {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, var(--ion-color-primary), #638ce8);
+  border-radius: 16px;
+  padding: 20px 24px;
+  box-shadow: 0 10px 20px rgba(var(--ion-color-primary-rgb), 0.2);
+  width: 100%;
+  max-width: 400px;
+  color: white;
+  transition: transform 0.3s ease;
+  margin-bottom: 20px;
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  .banner-icon {
+    font-size: 40px;
+    margin-right: 20px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+  }
+
+  .banner-text {
+    h3 {
+      margin: 0 0 5px 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.9rem;
+      opacity: 0.9;
+
+      a {
+        color: white;
+        text-decoration: underline;
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+.content-inner {
+  padding: 6px 14px 88px;
+}
+
+/* Section header row */
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 2px 10px;
+}
+
+.section-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: $text;
+
+  ion-icon {
+    font-size: 18px;
+    color: $primary-green;
+  }
+
+  .section-title {
+    font-size: 15px;
+    font-weight: 700;
+  }
+}
+
+.view-all {
+  border: none;
+  background: transparent;
+  color: $primary-green;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+/* My trips - horizontal cards */
+.trip-scroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 0 2px 6px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.trip-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.trip-card {
+  width: 210px;
+  flex: 0 0 auto;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  background: #fff;
+  margin: 0;
+  scroll-snap-align: start;
+}
+
+.trip-media {
+  position: relative;
+  height: 118px;
+}
+
+.trip-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.status-badge {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  height: 22px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.25);
+}
+
+.status-soon {
+  background: #111827;
+}
+
+.status-planned {
+  background: $primary-green;
+}
+
+.trip-title {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 10px;
+  color: #fff;
+  font-weight: 800;
+  font-size: 14px;
+  text-shadow: 0 8px 18px rgba(0, 0, 0, 0.45);
+}
+
+.trip-meta {
+  padding: 10px 12px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #6b7280;
+  font-size: 11px;
+}
+
+.trip-meta ion-icon {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* Saved places list */
+.saved-list {
+  background: transparent;
+  padding: 0;
+}
+
+.saved-item {
+  --background: #fff;
+  --border-radius: 16px;
+  --inner-padding-end: 10px;
+  --inner-padding-start: 10px;
+  --padding-top: 10px;
+  --padding-bottom: 10px;
+  margin: 8px 2px;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+}
+
+.place-img {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.place-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.place-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: $text;
+}
+
+.place-sub {
+  font-size: 11px;
+  color: $muted;
+  margin-top: 2px;
+}
+
+.place-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+  font-size: 11px;
+  color: #6b7280;
+}
+
+.place-rating ion-icon {
+  color: #f59e0b;
+  font-size: 14px;
+}
+
+.bookmark-green {
+  color: $primary-green;
+  font-size: 18px;
+}
+
+/* Settings */
+.settings-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+  margin: 10px 2px 0;
+  padding: 6px 0;
+}
+
+.settings-item {
+  --background: transparent;
+  --inner-padding-end: 14px;
+  --inner-padding-start: 14px;
+  --min-height: 48px;
+}
+
+.settings-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  margin-right: 10px;
+}
+
+.settings-icon.blue {
+  background: #e0f2fe;
+  color: #0284c7;
+}
+
+.settings-icon.green {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.settings-icon.orange {
+  background: #ffedd5;
+  color: #f97316;
+}
+
+.settings-icon.gray {
+  background: #eef2ff;
+  color: #64748b;
+}
+
+.settings-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: $text;
+}
+
+.chevron {
+  color: #9ca3af;
+  font-size: 18px;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  background: #ef4444;
+  border-radius: 999px;
+  display: inline-block;
+  margin-left: 6px;
+}
+
+ion-button.logout-btn {
+  width: 100%;
+  max-width: 400px;
+  --border-radius: 12px;
+  --padding-top: 15px;
+  --padding-bottom: 15px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}

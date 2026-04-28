@@ -1,0 +1,228 @@
+.ts-container {
+  padding: 16px 20px; /* Thêm padding ngang để không bị sát viền màn hình */
+}
+
+.section {
+  margin-bottom: 32px;
+}
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+/* Page Intro text */
+.page-intro {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.subtitle-badge {
+  color: #2dd36f;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.mb-16 {
+  margin-bottom: 16px;
+}
+
+.flex-row-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* --- GRID CHUNG CHO CÁC NÚT --- */
+.tags-grid,
+.companion-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* --- THIẾT KẾ NÚT BẤM (CARD) --- */
+.tag-card,
+.companion-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 12px;
+  border-radius: 12px;
+  background: #f4f5f8;
+  color: #555;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.2s ease-in-out;
+  border: 1.5px solid transparent;
+
+  /* Trạng thái được chọn */
+  &.active {
+    background: #eafff0; /* Xanh lá nhạt */
+    border-color: #2dd36f; /* Viền xanh lá */
+    color: #1a1a1a;
+
+    ion-icon {
+      color: #188644; /* Icon đậm hơn text một chút cho nổi bật */
+    }
+  }
+}
+
+/* Dấu tick đè góc trên bên phải */
+.check-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #2dd36f;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.divider {
+  height: 1px;
+  background-color: #f1f5f9;
+  margin: 24px 0;
+}
+
+/* --- BỘ ĐẾM SỐ LƯỢNG --- */
+.quantity-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8fafc;
+  padding: 16px;
+  border-radius: 16px;
+  margin-bottom: 24px;
+
+  .section-title {
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+}
+
+.subtitle-text {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.counter-box {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 4px;
+  min-width: 100px;
+  justify-content: space-around;
+
+  .counter-btn {
+    --padding-start: 0;
+    --padding-end: 0;
+    --border-radius: 6px;
+    width: 28px;
+    height: 28px;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f1f5f9;
+    color: #333;
+
+    &.add-btn {
+      background: #22c55e;
+      color: #ffffff;
+    }
+  }
+
+  .member-count {
+    font-weight: 700;
+    font-size: 15px;
+    color: #0f172a;
+    width: 24px;
+    text-align: center;
+  }
+}
+
+/* Dropdown */
+.mb-8 {
+  margin-bottom: 8px;
+}
+
+.dropdown-section {
+  .section-title {
+    font-size: 13px;
+  }
+}
+
+.dropdown-box {
+  position: relative;
+  width: 100%;
+
+  .custom-select {
+    width: 100%;
+    appearance: none;
+    background-color: #f8fafc;
+    border: none;
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 14px;
+    font-weight: 600; /* Làm font dày hơn cho text bên trong dropdown giống thiết kế */
+    color: #1e293b;
+    outline: none;
+
+    &:focus {
+      outline: 2px solid #2cfce7;
+    }
+  }
+
+  .select-icon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #64748b;
+    pointer-events: none;
+  }
+}
+
+/* --- FOOTER (NÚT XÁC NHẬN) --- */
+.footer-space {
+  height: 80px;
+}
+
+.action-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 16px 20px; /* Cập nhật lại padding cho footer tương tự */
+  background: #ffffff;
+  z-index: 100;
+}
+
+.continue-btn {
+  --border-radius: 12px;
+  --padding-top: 14px;
+  --padding-bottom: 14px;
+  font-weight: 700;
+  margin: 0;
+}

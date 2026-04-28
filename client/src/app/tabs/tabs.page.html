@@ -1,0 +1,48 @@
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="home">
+      <ion-icon name="home"></ion-icon>
+      <ion-label>Trang chủ</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="explore">
+      <ion-icon name="compass"></ion-icon>
+      <ion-label>Khám phá</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button disabled="true" class="space-tab"> </ion-tab-button>
+
+    <ion-tab-button tab="saved-trips">
+      <ion-icon name="heart"></ion-icon>
+      <ion-label>Đã lưu</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="user-profile">
+      <ion-icon name="person"></ion-icon>
+      <ion-label>Cá nhân</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+
+  <ion-fab
+    vertical="bottom"
+    horizontal="center"
+    slot="fixed"
+    class="center-fab"
+  >
+    <ion-fab-button
+      class="custom-fab"
+      (click)="navigateToCreateTrip()"
+      [disabled]="isCreatingTrip || isGeneratingTrip"
+    >
+      <ion-icon
+        *ngIf="!isCreatingTrip && !isGeneratingTrip"
+        name="add"
+      ></ion-icon>
+      <ion-spinner
+        *ngIf="isCreatingTrip || isGeneratingTrip"
+        name="crescent"
+        color="light"
+      ></ion-spinner>
+    </ion-fab-button>
+  </ion-fab>
+</ion-tabs>

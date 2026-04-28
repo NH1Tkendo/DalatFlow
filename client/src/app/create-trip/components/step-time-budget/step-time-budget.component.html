@@ -1,0 +1,183 @@
+<div class="ts-container">
+  <div class="section">
+    <div class="section-title">
+      <ion-icon name="calendar-clear-outline"></ion-icon>
+      <span>Thời gian</span>
+    </div>
+
+    <ion-grid class="form-grid">
+      <ion-row>
+        <ion-col size="6" size-sm="6">
+          <div class="input-card">
+            <div class="input-label-container">Ngày bắt đầu</div>
+            <div class="picker position-relative" style="position: relative">
+              <ion-icon
+                name="calendar-outline"
+                class="custom-date-icon"
+              ></ion-icon>
+              <ion-datetime-button
+                datetime="startDate"
+                style="padding-left: 28px"
+              ></ion-datetime-button>
+              <ion-modal keepContentsMounted="true">
+                <ng-template>
+                  <ion-datetime
+                    id="startDate"
+                    presentation="date"
+                    locale="vi-VN"
+                    class="dt"
+                    [(ngModel)]="stepData.startDate"
+                  >
+                  </ion-datetime>
+                </ng-template>
+              </ion-modal>
+            </div>
+          </div>
+        </ion-col>
+
+        <ion-col size="6" size-sm="6">
+          <div class="input-card">
+            <div class="input-label-container">Ngày kết thúc</div>
+            <div class="picker position-relative" style="position: relative">
+              <ion-icon
+                name="calendar-outline"
+                class="custom-date-icon"
+              ></ion-icon>
+              <ion-datetime-button
+                datetime="endDate"
+                style="padding-left: 28px"
+              ></ion-datetime-button>
+              <ion-modal keepContentsMounted="true">
+                <ng-template>
+                  <ion-datetime
+                    id="endDate"
+                    presentation="date"
+                    locale="vi-VN"
+                    class="dt"
+                    [(ngModel)]="stepData.endDate"
+                  >
+                  </ion-datetime>
+                </ng-template>
+              </ion-modal>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="6" size-sm="6">
+          <div class="input-card">
+            <div class="input-label-container">Giờ đến</div>
+            <div
+              class="picker compact position-relative"
+              style="position: relative"
+            >
+              <ion-icon
+                name="airplane-outline"
+                style="transform: translateY(-50%) rotate(90deg)"
+                class="custom-date-icon"
+              ></ion-icon>
+              <ion-datetime-button
+                datetime="arriveTime"
+                style="padding-left: 28px"
+              ></ion-datetime-button>
+              <ion-modal keepContentsMounted="true">
+                <ng-template>
+                  <ion-datetime
+                    id="arriveTime"
+                    presentation="time"
+                    locale="vi-VN"
+                    class="dt"
+                    [(ngModel)]="stepData.arriveTime"
+                  >
+                  </ion-datetime>
+                </ng-template>
+              </ion-modal>
+            </div>
+          </div>
+        </ion-col>
+
+        <ion-col size="6" size-sm="6">
+          <div class="input-card">
+            <div class="input-label-container">Giờ rời đi</div>
+            <div
+              class="picker compact position-relative"
+              style="position: relative"
+            >
+              <ion-icon
+                name="airplane-outline"
+                class="custom-date-icon"
+              ></ion-icon>
+              <ion-datetime-button
+                datetime="leaveTime"
+                style="padding-left: 28px"
+              ></ion-datetime-button>
+              <ion-modal keepContentsMounted="true">
+                <ng-template>
+                  <ion-datetime
+                    id="leaveTime"
+                    presentation="time"
+                    locale="vi-VN"
+                    class="dt"
+                    [(ngModel)]="stepData.leaveTime"
+                  >
+                  </ion-datetime>
+                </ng-template>
+              </ion-modal>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">
+        <ion-icon name="wallet-outline"></ion-icon>
+        <span>Ngân sách</span>
+      </div>
+      <div class="currency-badge">VND</div>
+    </div>
+
+    <ion-card class="budget-card">
+      <div class="budget-label">
+        <ion-icon name="cash-outline"></ion-icon>
+        <span>Ngân sách dự kiến</span>
+      </div>
+      <div class="budget-value">{{ displayBudgetText }} <span>đ</span></div>
+
+      <ion-range
+        class="budget-range"
+        min="1"
+        max="3"
+        step="1"
+        snaps="false"
+        ticks="false"
+        [(ngModel)]="stepData.budgetTier"
+        (ionChange)="updateBudgetText()"
+      >
+      </ion-range>
+
+      <div class="budget-levels">
+        <span><ion-icon name="leaf-outline"></ion-icon>Tiết kiệm</span>
+        <span><ion-icon name="options-outline"></ion-icon>Trung bình</span>
+        <span><ion-icon name="diamond-outline"></ion-icon>Sang trọng</span>
+      </div>
+    </ion-card>
+
+    <div class="hint-box">
+      <ion-icon name="information-circle-outline"></ion-icon>
+      <div>
+        Chúng tôi sẽ ưu tiên gợi ý các điểm đến tại Đà Lạt phù hợp với ngân sách
+        của bạn.
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-space"></div>
+
+  <ion-button expand="block" class="continue-btn" (click)="onNextClick()">
+    Tiếp tục <ion-icon name="arrow-forward-outline"></ion-icon>
+  </ion-button>
+</div>

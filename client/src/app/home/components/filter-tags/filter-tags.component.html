@@ -1,0 +1,13 @@
+<div class="tags-container" [class.no-scrollbar]="true">
+  <div
+    *ngFor="let tag of tags"
+    class="filter-tag"
+    [class.selected]="tag.selected"
+    (click)="toggleTag(tag)"
+  >
+    <span class="tag-label">
+      <ng-container *ngIf="tag.selected">{{ tag.count || 0 }} </ng-container
+      >{{ tag.label }}
+    </span>
+  </div>
+</div>

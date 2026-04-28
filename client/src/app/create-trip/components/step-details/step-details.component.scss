@@ -1,0 +1,201 @@
+.ts-container {
+  padding: 16px 20px;
+}
+
+.section {
+  margin-bottom: 32px;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .title-icon {
+    color: #22c55e;
+    font-size: 20px;
+  }
+}
+
+.mb-8 {
+  margin-bottom: 8px;
+}
+
+.mb-16 {
+  margin-bottom: 16px;
+}
+
+.subtitle-text {
+  font-size: 13px;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+.divider {
+  height: 1px;
+  background-color: #f1f5f9;
+  margin: 24px 0;
+}
+
+/* --- Vegetarian Section --- */
+.vegetarian-section,
+.check-section {
+  background: #f8fafc;
+  padding: 16px;
+  border-radius: 16px;
+}
+
+.checkbox-box {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  ion-checkbox {
+    --size: 24px;
+    --checkbox-background-checked: #22c55e;
+    --border-color-checked: #22c55e;
+  }
+
+  .checkbox-label {
+    display: flex;
+    flex-direction: column;
+
+    .section-title {
+      margin-bottom: 0;
+    }
+  }
+}
+
+/* --- Input Box --- */
+.input-box {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 4px 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+
+  .custom-input {
+    --padding-start: 0;
+    --padding-end: 0;
+    --placeholder-color: #94a3b8;
+    --placeholder-font-weight: 400;
+    font-size: 15px;
+    color: #1e293b;
+    margin: 0;
+  }
+}
+
+.helper-text {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-top: 8px;
+  font-style: italic;
+  padding-left: 4px;
+}
+
+/* --- Pace Grid --- */
+.pace-grid {
+  display: flex;
+  gap: 12px;
+}
+
+.pace-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 8px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+
+  ion-icon {
+    font-size: 24px;
+  }
+
+  &.active {
+    background: #22c55e;
+    border-color: #22c55e;
+    color: #ffffff;
+
+    ion-icon {
+      color: #ffffff;
+    }
+  }
+}
+
+/* --- Footer --- */
+.footer-space {
+  height: 80px;
+}
+
+.action-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  padding: 16px 20px;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+  z-index: 10;
+
+  .complete-btn {
+    --background: #22c55e;
+    --background-hover: #16a34a;
+    --border-radius: 12px;
+    --box-shadow: none;
+    margin: 0;
+    height: 48px;
+    font-weight: 600;
+    font-size: 16px;
+
+    ion-icon {
+      font-size: 20px;
+    }
+  }
+}
+
+.search-wrapper {
+  position: relative; // Bắt buộc phải có cái này để làm gốc tọa độ cho dropdown
+  width: 100%;
+}
+
+.autocomplete-dropdown {
+  position: absolute;
+  top: 100%; // Canh ngay mép dưới của input
+  left: 0;
+  right: 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  z-index: 1000; // Đè lên mọi thứ khác
+  max-height: 220px;
+  overflow-y: auto;
+  border: 1px solid #e0e0e0;
+  margin-top: 4px;
+
+  ion-item {
+    --padding-start: 12px;
+    --inner-padding-end: 12px;
+
+    h2 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+    }
+    p {
+      font-size: 12px;
+      color: #888;
+    }
+  }
+}

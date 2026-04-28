@@ -1,0 +1,12 @@
+<ion-content [fullscreen]="true">
+  <app-search-bar (search)="onSearch($event)"></app-search-bar>
+  <app-filter-tags [tags]="filterTags" (tagsChange)="onFiltersChange($event)">
+  </app-filter-tags>
+  <div id="dalat-map" class="full-map-container"></div>
+  <app-map-controls
+    (zoomIn)="zoomIn()"
+    (zoomOut)="zoomOut()"
+    (locateUser)="locateUser()"
+  >
+  </app-map-controls>
+</ion-content>

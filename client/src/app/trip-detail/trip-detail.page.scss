@@ -1,0 +1,231 @@
+// 1. Hero Banner
+.hero-banner {
+  position: relative;
+  min-height: 220px; // Chuyển sang min-height để tự dãn khi nội dung dài
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background-image: url("https://images.unsplash.com/photo-1596423735880-5f2a689b903e?q=80&w=800"); // Thay bằng ảnh thật
+  background-size: cover;
+  background-position: center;
+
+  .banner-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.2));
+  }
+
+  .banner-content {
+    position: relative;
+    z-index: 1;
+    padding: 50px 20px 20px;
+    width: 100%;
+    color: white;
+
+    h2 {
+      margin: 0;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 1.4;
+    }
+    p {
+      margin: 8px 0 0;
+      font-size: 13px;
+      opacity: 0.9;
+      line-height: 1.4;
+    }
+  }
+}
+
+// 2. Thanh Ngày & Chủ đề
+.day-segment {
+  background: white;
+  padding: 5px 0;
+  border-bottom: 1px solid #eee;
+
+  ion-segment-button {
+    --indicator-color: var(--ion-color-primary);
+    .day-num {
+      font-weight: bold;
+      font-size: 14px;
+    }
+    .day-date {
+      font-size: 11px;
+      color: #666;
+      margin-top: 2px;
+      text-transform: none;
+    }
+  }
+}
+
+.theme-header {
+  padding: 16px 20px 0;
+  h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+  }
+}
+
+// 3. Khung Timeline Cực Xịn
+.timeline-container {
+  padding: 20px 15px 40px; // Thêm padding-bottom để tránh bị che ở phần dưới cùng
+
+  .timeline-item {
+    display: flex;
+    position: relative;
+    margin-bottom: 20px;
+
+    // Cột Thời gian
+    .time-column {
+      width: 55px;
+      flex-shrink: 0;
+      text-align: right;
+      padding-top: 5px;
+      padding-right: 12px;
+
+      .start-time {
+        display: block;
+        font-weight: 700;
+        font-size: 14px;
+        color: #111;
+      }
+      .duration {
+        display: block;
+        font-size: 11px;
+        color: #888;
+        margin-top: 4px;
+      }
+    }
+
+    // Trục dọc & Icon
+    .divider-column {
+      width: 30px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+
+      // Đường kẻ dọc xuyên suốt
+      .line {
+        position: absolute;
+        top: 30px;
+        bottom: -20px; // Kéo dài xuống item tiếp theo
+        width: 2px;
+        background-color: #e0e0e0;
+        z-index: 1;
+      }
+
+      // Xóa đường kẻ ở item cuối cùng
+      &:last-child .line {
+        display: none;
+      }
+
+      .icon-wrapper {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 2; // Đè lên đường kẻ
+        box-shadow: 0 0 0 4px #fff; // Viền trắng để tách khỏi đường kẻ
+
+        ion-icon {
+          font-size: 16px;
+        }
+      }
+    }
+
+    // Thẻ Nội dung (Card)
+    .content-column {
+      flex-grow: 1;
+      padding-left: 12px;
+
+      .activity-card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 12px 15px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        border: 1px solid #f0f0f0;
+        transition: transform 0.2s;
+
+        &:active {
+          transform: scale(0.98);
+        } // Hiệu ứng lún khi bấm
+
+        h4 {
+          margin: 0 0 5px;
+          font-size: 15px;
+          font-weight: 700;
+          color: #222;
+        }
+
+        .notes {
+          margin: 0 0 10px;
+          font-size: 13px;
+          color: #666;
+          line-height: 1.4;
+        }
+
+        .action-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border-top: 1px dashed #eee;
+          padding-top: 8px;
+
+          .end-time {
+            font-size: 12px;
+            color: #999;
+          }
+          .map-btn {
+            margin: 0;
+            --padding-start: 5px;
+            --padding-end: 5px;
+            font-size: 12px;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+  }
+}
+
+// 4. Loading Container
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%; // Chiếm toàn bộ chiều cao của ion-content
+  text-align: center;
+  color: #666;
+  font-size: 16px;
+  font-weight: 500;
+
+  ion-spinner {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 20px;
+  }
+
+  p {
+    margin: 0;
+    animation: pulse 1.5s infinite;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}

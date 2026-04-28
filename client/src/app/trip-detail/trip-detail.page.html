@@ -1,0 +1,90 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <!-- Cập nhật href thành /tabs/home -->
+      <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Chi tiết lịch trình</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ng-container *ngIf="tripData">
+    <div class="hero-banner">
+      <div class="banner-overlay"></div>
+      <div class="banner-content">
+        <h2>{{ tripData.title || 'Lịch trình Đà Lạt' }}</h2>
+        <p>✨ {{ tripData.tripSummary }}</p>
+      </div>
+    </div>
+
+    <ion-segment
+      scrollable
+      [value]="selectedDayIndex.toString()"
+      (ionChange)="segmentChanged($event)"
+      mode="md"
+      class="day-segment"
+    >
+      <ion-segment-button
+        *ngFor="let day of tripData.days; let i = index"
+        [value]="i.toString()"
+      >
+        <ion-label>
+          <div class="day-num">Ngày {{ day.dayIndex }}</div>
+          <div class="day-date">{{ day.date }}</div>
+        </ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+    <div
+      class="theme-header"
+      *ngIf="tripData.days && tripData.days[selectedDayIndex]"
+    >
+      <h3>🎯 {{ tripData.days[selectedDayIndex].dayTheme }}</h3>
+    </div>
+
+    <div
+      class="timeline-container"
+      *ngIf="tripData.days && tripData.days[selectedDayIndex] as currentDay"
+    >
+      <div class="timeline-item" *ngFor="let activity of currentDay.activities">
+        <div class="time-column">
+          <span class="start-time">{{ activity.startTime }}</span>
+          <span class="duration">{{ activity.durationMinutes }}p</span>
+        </div>
+
+        <div class="divider-column">
+          <div class="line"></div>
+          <div
+            class="icon-wrapper"
+            [style.backgroundColor]="getIconConfig(activity.activityType).bg"
+          >
+            <ion-icon
+              [name]="getIconConfig(activity.activityType).name"
+              [style.color]="getIconConfig(activity.activityType).color"
+            >
+            </ion-icon>
+          </div>
+        </div>
+
+        <div class="content-column">
+          <div class="activity-card" (click)="viewOnMap(activity.placeId)">
+            <h4>{{ activity.placeName }}</h4>
+            <p class="notes">{{ activity.notes }}</p>
+            <div class="action-row">
+              <span class="end-time">Đến: {{ activity.endTime }}</span>
+              <ion-button fill="clear" size="small" class="map-btn">
+                <ion-icon name="map-outline" slot="start"></ion-icon> Bản đồ
+              </ion-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <div *ngIf="!tripData" class="loading-container">
+    <ion-spinner name="crescent" color="primary"></ion-spinner>
+    <p>Đang tải dữ liệu chuyến đi...</p>
+  </div>
+</ion-content>

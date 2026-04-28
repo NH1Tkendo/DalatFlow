@@ -1,0 +1,286 @@
+$primary-green: #22c55e;
+$light-bg: #f4f5f7;
+
+:host {
+  --ion-background-color: #f5f7fb;
+}
+
+/* Header */
+
+.explore-header {
+  box-shadow: none;
+  border-bottom: none;
+}
+
+.explore-toolbar {
+  --background: #f5f7fb;
+  --border-width: 0;
+  padding-inline: 16px;
+  padding-top: 6px;
+
+  ion-title {
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 0.2px;
+  }
+
+  ion-button {
+    --border-radius: 999px;
+    --padding-start: 6px;
+    --padding-end: 6px;
+    --background: transparent;
+  }
+
+  ion-icon {
+    font-size: 22px;
+    color: #111827;
+  }
+}
+
+/* Segment */
+
+.segment-wrapper {
+  padding: 0 16px 10px;
+}
+
+ion-segment {
+  --background: #e5e7eb;
+  border-radius: 999px;
+  padding: 3px;
+  height: 36px;
+}
+
+.segment-button {
+  --color: #6b7280;
+  --color-checked: #16a34a;
+  --indicator-color: transparent;
+  --background-checked: #dcfce7;
+  --background: transparent;
+  text-transform: none;
+  font-weight: 600;
+  font-size: 13px;
+  border-radius: 999px;
+}
+
+/* Content */
+
+.explore-content {
+  --background: #f5f7fb;
+}
+
+.content-inner {
+  padding: 4px 14px 80px;
+}
+
+/* Card */
+
+.post-card {
+  margin: 10px 2px 18px;
+  border-radius: 22px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  overflow: hidden;
+  border: none;
+  background: #ffffff;
+}
+
+.map-wrapper {
+  position: relative;
+  width: 100%;
+  height: 190px;
+  overflow: hidden;
+}
+
+.map-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Badges */
+
+.top-left-badges {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  gap: 6px;
+}
+
+.badge {
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.2);
+}
+
+.time-badge {
+  background: $primary-green;
+  color: #ffffff;
+}
+
+.price-badge {
+  background: #ffffff;
+  color: #111827;
+}
+
+/* Bookmark */
+
+.bookmark-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: none;
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bookmark-btn ion-icon {
+  font-size: 18px;
+  color: #111827;
+}
+
+/* Under-image info */
+
+.post-info {
+  padding: 12px 14px 14px;
+}
+
+.user-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.user-left {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.user-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.username {
+  font-size: 13px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.time-ago {
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+.follow-btn {
+  border: none;
+  background: transparent;
+  color: $primary-green;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Title */
+
+.place-title {
+  margin: 4px 0 10px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #111827;
+}
+
+/* Action row */
+
+.actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.actions-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icon-counter,
+.icon-only {
+  display: inline-flex;
+  align-items: center;
+  border: none;
+  background: transparent;
+  padding: 0;
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.icon-counter ion-icon,
+.icon-only ion-icon {
+  font-size: 18px;
+  margin-right: 3px;
+}
+
+.icon-only ion-icon {
+  margin-right: 0;
+}
+
+.plan-btn {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: none;
+  background: #22c55e;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  box-shadow: 0 8px 20px rgba(34, 197, 94, 0.5);
+}
+
+/* FAB */
+
+.center-fab {
+  margin-bottom: 34px;
+
+  ion-fab-button {
+    --background: $primary-green;
+    --box-shadow: 0 10px 24px rgba(34, 197, 94, 0.7);
+    width: 58px;
+    height: 58px;
+  }
+
+  ion-icon {
+    font-size: 26px;
+  }
+}
+
+/* Small devices refinement */
+
+@media (min-width: 400px) {
+  .map-wrapper {
+    height: 210px;
+  }
+
+  .post-card {
+    border-radius: 24px;
+  }
+}

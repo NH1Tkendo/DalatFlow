@@ -1,0 +1,33 @@
+<ion-header class="explore-header">
+  <ion-toolbar class="explore-toolbar" mode="ios">
+    <ion-title>Cộng đồng</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button fill="clear">
+        <ion-icon slot="icon-only" name="search-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <!-- Segment Tabs -->
+  <div class="segment-wrapper">
+    <ion-segment value="trend" mode="ios">
+      <ion-segment-button value="trend" class="segment-button">
+        <ion-label>Xu hướng</ion-label>
+      </ion-segment-button>
+
+      <ion-segment-button value="new" class="segment-button">
+        <ion-label>Mới</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+</ion-header>
+
+<ion-content class="explore-content" [fullscreen]="true">
+  <div class="content-inner">
+    <app-explore-card
+      *ngFor="let card of exploreCards"
+      [data]="card"
+    ></app-explore-card>
+  </div>
+</ion-content>

@@ -1,0 +1,145 @@
+.login-container {
+  --background: #fdf5f5; /* Light pink/beige background */
+
+  .login-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+    font-family: inherit;
+  }
+
+  /* Logo Section */
+  .logo-section {
+    margin-bottom: 3rem;
+  }
+
+  .logo-img {
+    width: 200px;
+    height: auto;
+    object-fit: contain;
+  }
+
+  /* Form Section */
+  .form-section {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .input-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+
+    label {
+      position: absolute;
+      top: -8px;
+      left: 15px;
+      background: #fdf5f5;
+      padding: 0 5px;
+      color: #999;
+      font-size: 0.8rem;
+      z-index: 10;
+    }
+
+    ion-input {
+      --background: transparent;
+      --padding-start: 1rem;
+      --padding-end: 1rem;
+      --placeholder-color: #ccc;
+      --color: #333;
+      border: 1px solid #e0d5d5; /* Light border */
+      border-radius: 12px;
+      height: 50px;
+    }
+
+    .password-input {
+      position: relative;
+      display: flex;
+      align-items: center;
+
+      ion-input {
+        width: 100%;
+      }
+
+      ion-icon {
+        position: absolute;
+        right: 15px;
+        font-size: 1.2rem;
+        color: #666;
+        cursor: pointer;
+        z-index: 20;
+      }
+    }
+  }
+
+  .options-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5rem;
+    font-size: 0.85rem;
+
+    ion-checkbox {
+      --size: 18px;
+      --checkbox-background: transparent;
+      --border-color: #ccc;
+      --border-radius: 4px;
+      --checkmark-color: #28ba62; /* Green */
+      font-size: 0.85rem;
+      color: #999;
+    }
+
+    .forgot-password {
+      color: #999;
+      text-decoration: none;
+    }
+  }
+
+  /* Action Buttons */
+  .action-section {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 2rem;
+
+    .btn-create-account {
+      --border-color: #e0d5d5;
+      --color: #333;
+      --border-radius: 12px;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      height: 50px;
+    }
+
+    .btn-sign-in {
+      --background: #28ba62; /* MAIN GREEN COLOR */
+      --background-hover: #22a356;
+      --color: white;
+      --border-radius: 12px;
+      font-weight: 600;
+      height: 50px;
+    }
+  }
+
+  /* Social Login Section */
+  .social-section {
+    display: flex;
+    gap: 1rem;
+
+    .social-btn {
+      --padding-start: 10px;
+      --padding-end: 10px;
+      --background: white;
+      --color: #333;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+
+      ion-icon {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+<ion-header class="profile-header">
+  <ion-toolbar class="profile-toolbar" mode="ios">
+    <ion-title>Cá nhân</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="profile-content" [fullscreen]="true">
+  <div class="content-inner ion-padding">
+    <div class="web-version-banner">
+      <ion-icon name="globe-outline" class="banner-icon"></ion-icon>
+      <div class="banner-text">
+        <h3>Trải nghiệm đa nền tảng</h3>
+        <p>
+          Sử dụng phiên bản web tại
+          <strong
+            ><a
+              href="https://ngobatai.dev"
+              target="_blank"
+              rel="noopener noreferrer"
+              >ngobatai.dev</a
+            ></strong
+          >
+        </p>
+      </div>
+    </div>
+
+    <ion-button expand="block" color="danger" (click)="logout()">
+      <ion-icon slot="start" name="log-out-outline"></ion-icon>
+      Đăng xuất
+    </ion-button>
+  </div>
+</ion-content>

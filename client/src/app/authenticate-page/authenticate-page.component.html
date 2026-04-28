@@ -1,0 +1,108 @@
+<ion-content class="login-container">
+  <div class="login-wrapper">
+    <!-- Logo/Icon Section -->
+    <div class="logo-section">
+      <img
+        src="assets/icon/Logo_DalatFlow.png"
+        alt="DalatFlow Logo"
+        class="logo-img"
+      />
+    </div>
+
+    <!-- Form Section -->
+    <div class="form-section">
+      <div class="input-group">
+        <label>Email</label>
+        <ion-input
+          type="email"
+          placeholder="example@gmail.com"
+          [(ngModel)]="email"
+        ></ion-input>
+      </div>
+
+      <div class="input-group">
+        <label>Mật khẩu</label>
+        <div class="password-input">
+          <ion-input
+            [type]="showPassword ? 'text' : 'password'"
+            [(ngModel)]="password"
+          ></ion-input>
+          <ion-icon
+            [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"
+            (click)="togglePassword()"
+          ></ion-icon>
+        </div>
+      </div>
+
+      <!-- Confirm Password (Only visible in Register mode) -->
+      <div class="input-group" *ngIf="!isLoginMode">
+        <label>Xác nhận mật khẩu</label>
+        <div class="password-input">
+          <ion-input
+            [type]="showConfirmPassword ? 'text' : 'password'"
+            [(ngModel)]="confirmPassword"
+          ></ion-input>
+          <ion-icon
+            [name]="showConfirmPassword ? 'eye-off-outline' : 'eye-outline'"
+            (click)="toggleConfirmPassword()"
+          ></ion-icon>
+        </div>
+      </div>
+
+      <div class="options-row" *ngIf="isLoginMode">
+        <ion-checkbox>Ghi nhớ đăng nhập</ion-checkbox>
+        <a href="#" class="forgot-password">Quên mật khẩu?</a>
+      </div>
+
+      <!-- Error Message Area -->
+      <div
+        class="error-message"
+        *ngIf="errorMessage"
+        style="color: red; margin-top: 10px; text-align: center"
+      >
+        {{ errorMessage }}
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-section">
+      <!-- Create Account Button -->
+      <!-- Nếu đang ở Đăng Nhập -> Nút này đưa sang Đăng Ký. Nếu đang Đăng Ký -> Nút này gọi hàm Đăng Ký -->
+      <ion-button
+        expand="block"
+        [fill]="isLoginMode ? 'outline' : 'solid'"
+        [class]="isLoginMode ? 'btn-create-account' : 'btn-sign-in'"
+        (click)="isLoginMode ? toggleMode() : submitForm()"
+      >
+        Tạo tài khoản
+      </ion-button>
+
+      <!-- Sign In Button -->
+      <!-- Nếu đang ở Đăng Ký -> Nút này đưa sang Đăng Nhập. Nếu đang Đăng Nhập -> Nút này gọi hàm Đăng Nhập -->
+      <ion-button
+        expand="block"
+        [shape]="isLoginMode ? 'round' : 'square'"
+        [fill]="isLoginMode ? 'solid' : 'outline'"
+        [class]="isLoginMode ? 'btn-sign-in' : 'btn-create-account'"
+        (click)="!isLoginMode ? toggleMode() : submitForm()"
+      >
+        Đăng nhập
+      </ion-button>
+    </div>
+
+    <!-- Social Login Section -->
+    <div class="social-section">
+      <ion-button fill="clear" shape="round" class="social-btn">
+        <ion-icon name="logo-instagram"></ion-icon>
+      </ion-button>
+
+      <ion-button fill="clear" shape="round" class="social-btn">
+        <ion-icon name="logo-google"></ion-icon>
+      </ion-button>
+
+      <ion-button fill="clear" shape="round" class="social-btn">
+        <ion-icon name="logo-facebook"></ion-icon>
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

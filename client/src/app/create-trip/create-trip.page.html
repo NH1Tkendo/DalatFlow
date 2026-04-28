@@ -1,0 +1,45 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="custom-toolbar">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()" class="back-btn">
+        <ion-icon
+          name="chevron-back-outline"
+          style="color: #333; font-size: 24px"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="custom-title">
+      {{ currentStep === 3 ? 'Chi tiết & Yêu cầu' : 'Thiết lập chuyến đi' }}
+    </ion-title>
+  </ion-toolbar>
+
+  <div
+    class="step-progress-wrapper"
+    style="background-color: #f5f5f5; padding: 16px 16px 16px"
+  >
+    <div class="step-header">
+      <div class="step-count">BƯỚC {{ currentStep }}/3</div>
+      <div class="step-name">{{ getStepTitle() }}</div>
+    </div>
+    <div class="progress-bar-container">
+      <div
+        class="progress-bar-fill"
+        [style.width.%]="(currentStep / 3) * 100"
+      ></div>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content>
+  @switch (currentStep) { @case (1) {
+  <app-step-time-budget (nextStep)="goToStep(2)"> </app-step-time-budget>
+  } @case (2) {
+  <app-step-interests (nextStep)="goToStep(3)" (prevStep)="goToStep(1)">
+  </app-step-interests>
+  } @case (3) {
+  <app-step-details (submitForm)="finish()" (prevStep)="goToStep(2)">
+  </app-step-details>
+  } @default {
+  <div class="error-state">Có lỗi xảy ra, vui lòng tải lại trang.</div>
+  } }
+</ion-content>

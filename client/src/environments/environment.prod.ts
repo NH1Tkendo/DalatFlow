@@ -1,0 +1,13 @@
+export const environment = {
+  production: true,
+  apiUrl: 'https://vps.ngobatai.dev',
+  firebaseConfig: {
+    apiKey: 'AIzaSyAQPs9kBxg1mZn6qDUi8KSybHUlGKLoeOk',
+    authDomain: 'dalat-smart-schedule.firebaseapp.com',
+    projectId: 'dalat-smart-schedule',
+    storageBucket: 'dalat-smart-schedule.firebasestorage.app',
+    messagingSenderId: '826113680001',
+    appId: '1:826113680001:web:dfdccd7c3c438694fde380',
+    measurementId: 'G-EGKGK9F4VK',
+  },
+};

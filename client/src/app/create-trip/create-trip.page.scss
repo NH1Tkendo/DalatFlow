@@ -1,0 +1,61 @@
+/* You can add global styles to this file, and also import other style files */
+ion-content {
+  --background: #f5f5f5;
+}
+
+.custom-toolbar {
+  --background: #f5f5f5;
+  --min-height: 56px;
+  padding-top: 10px;
+}
+
+.custom-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111;
+  text-align: center;
+}
+
+.back-btn {
+  --padding-start: 10px;
+  --padding-end: 10px;
+}
+
+.step-progress-wrapper {
+  background-color: #f5f5f5;
+}
+
+.step-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 10px;
+}
+
+.step-count {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #333;
+}
+
+.step-name {
+  font-size: 12px;
+  color: #5d758a; /* Màu xanh xám như thiết kế */
+  font-weight: 500;
+}
+
+.progress-bar-container {
+  height: 6px;
+  background-color: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: #00e65b; /* Màu xanh lá như thiết kế */
+  border-radius: 4px;
+  transition: width 0.3s ease-in-out;
+}

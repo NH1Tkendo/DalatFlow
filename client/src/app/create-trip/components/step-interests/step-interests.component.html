@@ -1,0 +1,85 @@
+<div class="ts-container">
+  <div class="page-intro">
+    Hãy cho chúng tôi biết về phong cách du lịch của bạn để nhận gợi ý phù hợp
+    nhất.
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">Sở thích / Phong cách</div>
+      <div class="subtitle-badge">Chọn 1-3 tag</div>
+    </div>
+
+    <div class="tags-grid">
+      @for (tag of tagsList; track tag.id) {
+        <div
+          class="tag-card"
+          [class.active]="stepData.tags.includes(tag.id)"
+          (click)="toggleTag(tag.id)"
+        >
+          <ion-icon [name]="tag.icon"></ion-icon>
+          <span>{{ tag.name }}</span>
+
+          @if (stepData.tags.includes(tag.id)) {
+            <div class="check-badge">
+              <ion-icon name="checkmark-outline"></ion-icon>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section quantity-section">
+    <div class="quantity-info">
+      <div class="section-title">Số lượng người đi</div>
+      <div class="subtitle-text">Bao gồm cả trẻ em</div>
+    </div>
+    <div class="counter-box">
+      <ion-button
+        fill="clear"
+        class="counter-btn"
+        (click)="changeMembers(-1)"
+        [disabled]="stepData.members <= 1"
+      >
+        <span style="font-size: 20px">-</span>
+      </ion-button>
+
+      <div class="member-count">{{ stepData.members }}</div>
+
+      <ion-button
+        fill="clear"
+        class="counter-btn add-btn"
+        (click)="changeMembers(1)"
+      >
+        <span style="font-size: 20px">+</span>
+      </ion-button>
+    </div>
+  </div>
+
+  <div class="section checkbox-section">
+    <ion-item lines="none" class="checkbox-item" color="transparent">
+      <ion-checkbox
+        slot="start"
+        [(ngModel)]="stepData.hasElderlyOrKids"
+        (ionChange)="toggleElderlyOrKids()"
+      ></ion-checkbox>
+      <ion-label>Có người lớn tuổi hoặc trẻ em đi cùng</ion-label>
+    </ion-item>
+  </div>
+
+  <div class="footer-space"></div>
+
+  <div class="action-footer">
+    <ion-button
+      class="continue-btn"
+      color="success"
+      expand="block"
+      (click)="saveAndGo('next')"
+    >
+      Tiếp tục <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+    </ion-button>
+  </div>
+</div>

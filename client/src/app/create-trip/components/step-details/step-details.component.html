@@ -1,0 +1,145 @@
+<div class="ts-container">
+  <!-- Vegetarian Checkbox -->
+  <div class="section vegetarian-section">
+    <div class="checkbox-box">
+      <ion-checkbox
+        [(ngModel)]="stepData.isVegetarian"
+        color="success"
+      ></ion-checkbox>
+      <div class="checkbox-label">
+        <div class="section-title">Ăn chay</div>
+        <div class="subtitle-text">
+          Tích vào đây nếu bạn duy trì chế độ ăn chay
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Nơi lưu tru -->
+  <div class="section search-wrapper">
+    <div class="section-head mb-8">
+      <div class="section-title">
+        <ion-icon name="bed-outline" class="title-icon"></ion-icon> Nơi lưu trú
+      </div>
+    </div>
+    <div class="input-box">
+      <ion-input
+        [value]="stepData.accommodation"
+        (ionInput)="onSearchAccommodation($event)"
+        (ionFocus)="isAccoDropdownOpen = true"
+        placeholder="Nhập tên khách sạn, homestay..."
+        class="custom-input"
+        clearInput="true"
+        (ionClear)="clearAccommodation()"
+      ></ion-input>
+    </div>
+
+    <div
+      class="autocomplete-dropdown"
+      *ngIf="isAccoDropdownOpen && accoResults.length > 0"
+    >
+      <ion-list lines="full">
+        <ion-item
+          *ngFor="let place of accoResults"
+          (click)="selectAccommodation(place)"
+          button
+          detail="false"
+        >
+          <ion-icon
+            name="business-outline"
+            slot="start"
+            color="tertiary"
+          ></ion-icon>
+          <ion-label>
+            <h2>{{ place.name }}</h2>
+            <p>
+              {{ place.rating ? "⭐ " + place.rating : "Chưa có đánh giá" }}
+            </p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+
+  <!-- Nhịp độ chuyến đi -->
+  <div class="section pace-section">
+    <div class="section-title mb-16">
+      <ion-icon name="speedometer-outline" class="title-icon"></ion-icon> Nhịp
+      độ chuyến đi
+    </div>
+    <div class="pace-grid">
+      @for (pace of paces; track pace.id) {
+        <div
+          class="pace-card"
+          [class.active]="stepData.pace === pace.id"
+          (click)="selectPace(pace.id)"
+        >
+          <ion-icon [name]="pace.icon"></ion-icon>
+          <span>{{ pace.name }}</span>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Địa điểm bắt buộc -->
+  <div class="section search-wrapper must-visit-section">
+    <div class="section-head mb-8">
+      <div class="section-title">
+        <ion-icon name="location-outline" class="title-icon"></ion-icon> Địa
+        điểm bắt buộc
+      </div>
+    </div>
+    <div class="input-box">
+      <ion-input
+        [value]="stepData.mustVisitPlaces"
+        (ionInput)="onSearchMustVisit($event)"
+        (ionFocus)="isMustVisitDropdownOpen = true"
+        placeholder="VD: Quảng trường Lâm Viên..."
+        class="custom-input"
+        clearInput="true"
+        (ionClear)="clearMustVisit()"
+      ></ion-input>
+    </div>
+    <div class="helper-text">*Mục này là tùy chọn</div>
+
+    <div
+      class="autocomplete-dropdown"
+      *ngIf="isMustVisitDropdownOpen && mustVisitResults.length > 0"
+    >
+      <ion-list lines="full">
+        <ion-item
+          *ngFor="let place of mustVisitResults"
+          (click)="selectMustVisit(place)"
+          button
+          detail="false"
+        >
+          <ion-icon
+            name="location-outline"
+            slot="start"
+            color="danger"
+          ></ion-icon>
+          <ion-label>
+            <h2>{{ place.name }}</h2>
+            <p>{{ place.tags ? place.tags[0] : "Điểm tham quan" }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+
+  <div class="footer-space"></div>
+
+  <div class="action-footer">
+    <ion-button
+      class="complete-btn"
+      color="success"
+      expand="block"
+      (click)="saveAndGo('next')"
+    >
+      Hoàn tất thiết lập
+      <ion-icon name="checkmark-circle" slot="end"></ion-icon>
+    </ion-button>
+  </div>
+</div>
