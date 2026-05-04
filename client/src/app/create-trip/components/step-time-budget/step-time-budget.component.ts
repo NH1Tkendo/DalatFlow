@@ -52,9 +52,10 @@ export class StepTimeBudgetComponent implements OnInit {
   ngOnInit() {
     // 1. Khởi tạo ngày mặc định là ngày hiện tại cho cả ngày bắt đầu và kết thúc
     const today = new Date();
+    const todayISO = today.toISOString().split('T')[0]; // Lấy phần YYYY-MM-DD
 
-    this.stepData.startDate = today.toISOString();
-    this.stepData.endDate = today.toISOString();
+    this.stepData.startDate = todayISO;
+    this.stepData.endDate = todayISO;
     this.stepData.arriveTime = '1970-01-01T08:00:00'; // Chỉ lấy phần giờ (08:00)
     this.stepData.leaveTime = '1970-01-01T14:00:00'; // Chỉ lấy phần giờ (14:00)
 

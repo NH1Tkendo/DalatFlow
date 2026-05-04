@@ -46,8 +46,9 @@
               <ion-datetime-button
                 datetime="startDate"
                 style="padding-left: 28px"
+                id="startDateBtn"
               ></ion-datetime-button>
-              <ion-modal keepContentsMounted="true">
+              <ion-modal keepContentsMounted="true" trigger="startDateBtn">
                 <ng-template>
                   <ion-datetime
                     id="startDate"
@@ -74,8 +75,9 @@
               <ion-datetime-button
                 datetime="endDate"
                 style="padding-left: 28px"
+                id="endDateBtn"
               ></ion-datetime-button>
-              <ion-modal keepContentsMounted="true">
+              <ion-modal keepContentsMounted="true" trigger="endDateBtn">
                 <ng-template>
                   <ion-datetime
                     id="endDate"
@@ -108,8 +110,9 @@
               <ion-datetime-button
                 datetime="arriveTime"
                 style="padding-left: 28px"
+                id="arriveTimeBtn"
               ></ion-datetime-button>
-              <ion-modal keepContentsMounted="true">
+              <ion-modal keepContentsMounted="true" trigger="arriveTimeBtn">
                 <ng-template>
                   <ion-datetime
                     id="arriveTime"
@@ -139,8 +142,9 @@
               <ion-datetime-button
                 datetime="leaveTime"
                 style="padding-left: 28px"
+                id="leaveTimeBtn"
               ></ion-datetime-button>
-              <ion-modal keepContentsMounted="true">
+              <ion-modal keepContentsMounted="true" trigger="leaveTimeBtn">
                 <ng-template>
                   <ion-datetime
                     id="leaveTime"
