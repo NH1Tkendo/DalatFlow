@@ -11,7 +11,7 @@
   width: 100%;
   z-index: 500; /* Giảm từ 1000 xuống 500 để map có thể interactive */
   pointer-events: auto;
-  background: rgba(245, 245, 245, 0.95); /* Thêm background cho filter tags */
+  background: transparent; /* Thêm background cho filter tags */
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
