@@ -48,18 +48,20 @@ export const generateSmartItinerary = async (userId, data) => {
   - Quy tắc 3 (Sức khỏe & Đối tượng): Nếu phần Số lượng khách có trẻ em/người lớn tuổi, ƯU TIÊN chọn các địa điểm an toàn, dễ đi. Bắt buộc phải có thời gian nghỉ ngơi hợp lý.
   - Quy tắc 4 (Ẩm thực & Thư giãn): Đảm bảo đan xen hợp lý các địa điểm ăn chính và cà phê/tráng miệng vào các khung giờ phù hợp.
   - Quy tắc 5 (Hợp lý hóa thời gian): Đảm bảo có đủ khoảng trống thời gian di chuyển giữa điểm A và điểm B.
+  - Quy tắc 6 (Nghệ thuật đặt tên ĐỘC BẢN): Trường 'tripName' BẮT BUỘC phải ĐỘC ĐÁO, SÁNG TẠO, mang đậm cá tính người dùng và điểm nhấn của lịch trình. TUYỆT ĐỐI KHÔNG dùng các mẫu câu nhàm chán như "Vi vu Đà Lạt", "Chuyến đi Đà Lạt x ngày". Hãy kết hợp [Vibe/Cảm xúc] + [Đối tượng/Mục đích] + [Điểm nhấn] (VD Tốt: "Trốn Việc Lên Mây - Hành Trình Cực Chill Cùng Hội Bạn Thân", "Thưởng Thức Vị Nguyên Bản - Ẩm Thực Đà Lạt Cao Cấp", "Chữa Lành Giữa Rừng Thông - Trải Nghiệm Sinh Viên Siêu Tiết Kiệm").
 
   ### 4. ĐỊNH DẠNG ĐẦU RA (STRICT JSON FORMAT)
   Bạn chỉ được phép trả về kết quả là một chuỗi JSON thuần túy, đúng theo cấu trúc dưới đây. Tuyệt đối KHÔNG bọc trong markdown (\`\`\`json) hay thêm bất kỳ văn bản nào bên ngoài block JSON.
 
   {
     "reasoning": "Suy nghĩ từng bước của bạn (Chain of Thought). Hãy phân tích nhanh lộ trình, thời gian di chuyển và lý do chọn tuyến đường này trước khi tạo mảng days bên dưới.",
-    "tripSummary": "Tóm tắt ngắn gọn vibe của chuyến đi (VD: Nhẹ nhàng, khám phá thiên nhiên Đà Lạt)",
+    "tripName": "Tên lịch trình SÁNG TẠO, KHÔNG TRÙNG LẶP, tuân thủ nghiêm ngặt Quy tắc 6.",
+    "tripSummary": "Mô tả ngắn gọn (1-2 câu) về phong cách, cảm hứng và điểm nhấn chính của lịch trình này.",
     "days": [
       {
         "dayIndex": 1,
         "date": "dd/mm/yyyy",
-        "dayTheme": "Tên chủ đề của ngày (VD: Vi vu ngoại ô)",
+        "dayTheme": "Tên chủ đề của ngày, cũng phải sáng tạo (VD: Sáng săn mây, chiều đón hoàng hôn)",
         "activities": [
           {
             "placeId": "Mã ID lấy chính xác từ thẻ <database>",
@@ -80,7 +82,6 @@ export const generateSmartItinerary = async (userId, data) => {
     // --------------------------------------------------------------------------
     // 3. GỌI GEMINI VÀ XỬ LÝ KẾT QUẢ
     // --------------------------------------------------------------------------
-    console.log("Đang gửi prompt đến Gemini...");
     const result = await genAI.models.generateContent({
       model: "gemini-2.5-flash",
       contents: prompt,
