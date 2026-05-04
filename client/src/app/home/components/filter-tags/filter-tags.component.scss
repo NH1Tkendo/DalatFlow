@@ -9,8 +9,9 @@
   top: 76px; /* Below search bar */
   left: 0;
   width: 100%;
-  z-index: 1000;
-  pointer-events: auto; /* Ensure clicks go through map container if it covers */
+  z-index: 500; /* Giảm từ 1000 xuống 500 để map có thể interactive */
+  pointer-events: auto;
+  background: rgba(245, 245, 245, 0.95); /* Thêm background cho filter tags */
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */

@@ -3,6 +3,9 @@ import * as itineraryService from "../services/itinerary.service.js";
 export const generateItinerary = async (req, res) => {
   try {
     const userId = req.user.uid;
+    const userEmail = req.user.email || "user";
+    const userName = req.user.name || userEmail.split("@")[0]; // Lấy phần trước @ nếu không có name
+
     let {
       startDate,
       endDate,
@@ -33,6 +36,7 @@ export const generateItinerary = async (req, res) => {
       accommodations,
       mustGoPlaces,
       pace,
+      createdBy: userName, // Thêm tên người tạo
     };
 
     const result = await itineraryService.generateSmartItinerary(userId, data);
@@ -79,6 +83,7 @@ export const getAllItinerariesSummary = async (req, res) => {
 
     const data = itineraries.map((itinerary) => ({
       ...itinerary,
+      tripId: itinerary.id,
       rating: 4.5, // Default/Placeholder rating since we don't have it in the collection
       location: "Vietnam", // Default location or derived from places
     }));

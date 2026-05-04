@@ -12,6 +12,7 @@ const ICON_PATHS: any = {
     'M480-80q-139-35-229.5-159.5T160-516v-244l320-120 320 120v244q0 152-90.5 276.5T480-80Zm0-84q97-30 162-118.5T718-480H480v-315l-240 90v207q0 7 2 18h238v316Z',
   medical:
     'M160-80q-33 0-56.5-23.5T80-160v-480q0-33 23.5-56.5T160-720h160v-80q0-33 23.5-56.5T400-880h160q33 0 56.5 23.5T640-800v80h160q33 0 56.5 23.5T880-640v480q0 33-23.5 56.5T800-80H160Zm0-80h640v-480H160v480Zm240-560h160v-80H400v80ZM160-160v-480 480Zm280-200v120h80v-120h120v-80H520v-120h-80v120H320v80h120Z',
+  khac: 'M240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400Z',
 };
 
 const CATEGORY_COLORS: any = {
@@ -21,6 +22,7 @@ const CATEGORY_COLORS: any = {
   atm: '#1976D2', //Xanh dương
   medical: '#2E7D32', // Xanh lá
   police: '#1A237E', // Xanh navy
+  khac: '#808080', //Xám
 };
 
 const CATEGORY_MAP: Record<string, string> = {
@@ -30,6 +32,7 @@ const CATEGORY_MAP: Record<string, string> = {
   'quán ăn': 'restaurant',
   'quán cà phê': 'restaurant',
   'cà phê': 'restaurant',
+  'trà trân châu': 'restaurant',
 
   // Nhóm Tham quan
   'điểm thu hút khách du lịch': 'attraction',
@@ -37,6 +40,7 @@ const CATEGORY_MAP: Record<string, string> = {
   'vườn thực vật': 'attraction',
   'đại lý du lịch tham quan': 'attraction',
   'dịch vụ nông nghiệp': 'attraction',
+  'quảng trường': 'attraction',
 
   // Nhóm Lưu trú
   hotel: 'hotel',
@@ -44,11 +48,13 @@ const CATEGORY_MAP: Record<string, string> = {
   lodging: 'hotel',
   'khách sạn lưu trú dài hạn': 'hotel',
   'nhà nghỉ': 'hotel',
+  'youth hostel': 'hotel',
 
   // Nhóm Tiện ích
   atm: 'atm',
   'cảnh sát dân sự': 'police',
   'công an': 'police',
+  'cảnh sát tiểu bang': 'police',
   'cửa hàng bán thuốc': 'medical',
   'cửa hàng thuốc': 'medical',
   'hiệu thuốc': 'medical',
@@ -68,14 +74,14 @@ export function normalizeCategory(rawCategory: any): string {
   catString = String(catString).toLowerCase().trim();
 
   // Tra từ điển (Đảm bảo bạn đã có biến CATEGORY_MAP ở trên nhé)
-  return CATEGORY_MAP[catString] || 'attraction';
+  return CATEGORY_MAP[catString] || 'khac';
 }
 
 export function createPin(category: string): L.DivIcon {
   const normalizedKey = normalizeCategory(category);
 
-  const bgColor = CATEGORY_COLORS[normalizedKey] || '#EA4335';
-  const iconPath = ICON_PATHS[normalizedKey] || ICON_PATHS['attraction'];
+  const bgColor = CATEGORY_COLORS[normalizedKey] || '#808080';
+  const iconPath = ICON_PATHS[normalizedKey] || ICON_PATHS['khac'];
 
   const svgString = `
     <svg viewBox="0 0 32 40" xmlns="http://www.w3.org/2000/svg">

@@ -46,6 +46,7 @@ export class HomePage implements OnInit {
     { id: 'police', label: 'Cơ quan An ninh', selected: false },
     { id: 'medical', label: 'Cơ sở y tế', selected: false },
     { id: 'atm', label: 'ATM', selected: false },
+    { id: 'khac', label: 'Khác', selected: false },
   ];
 
   async ngOnInit() {
@@ -62,9 +63,11 @@ export class HomePage implements OnInit {
       await this.markerService.loadAllPlacesOnce();
       this.updateTagCounts();
       // 3. Khởi tạo bản đồ
-      this.ionViewDidEnter();
+      await this.ionViewDidEnter();
     } catch (error) {
       console.error('Lỗi tải bản đồ', error);
+      // Hiển thị thông báo lỗi nhưng vẫn hiển thị bản đồ
+      alert('Lỗi tải dữ liệu bản đồ. Vui lòng tải lại trang.');
     } finally {
       // 4. Tắt vòng xoay chờ dù thành công hay thất bại
       await loading.dismiss();
@@ -77,36 +80,45 @@ export class HomePage implements OnInit {
       return;
     }
 
-    const southWest = L.latLng(11.8, 108.35); // Góc dưới trái (Gần đèo Prenn)
-    const northEast = L.latLng(12.05, 108.55); // Góc trên phải (Qua khỏi Langbiang / Trại Mát)
-    const dalatBounds = L.latLngBounds(southWest, northEast);
+    try {
+      const southWest = L.latLng(11.8, 108.35); // Góc dưới trái (Gần đèo Prenn)
+      const northEast = L.latLng(12.05, 108.55); // Góc trên phải (Qua khỏi Langbiang / Trại Mát)
+      const dalatBounds = L.latLngBounds(southWest, northEast);
 
-    this.map = L.map('dalat-map', {
-      zoomControl: false,
-      attributionControl: false,
-      maxBounds: dalatBounds,
-      minZoom: 12,
-    }).setView([11.9425, 108.4435], 15);
+      this.map = L.map('dalat-map', {
+        zoomControl: false,
+        attributionControl: false,
+        maxBounds: dalatBounds,
+        minZoom: 12,
+      }).setView([11.9425, 108.4435], 15);
 
-    L.tileLayer(
-      'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-      {
-        maxZoom: 20,
-        detectRetina: true,
-      },
-    ).addTo(this.map);
+      L.tileLayer(
+        'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+        {
+          maxZoom: 20,
+          detectRetina: true,
+          errorTileUrl:
+            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256"><rect fill="%23f0f0f0" width="256" height="256"/></svg>',
+        },
+      ).addTo(this.map);
 
-    // Thêm LayerGroup chứa marker vào bản đồ
-    this.markerLayerGroup.addTo(this.map);
+      // Thêm LayerGroup chứa marker vào bản đồ
+      this.markerLayerGroup.addTo(this.map);
 
-    setTimeout(() => {
-      this.map.invalidateSize();
-      this.callMarkerService();
-    }, 400);
+      setTimeout(() => {
+        this.map.invalidateSize();
+        this.callMarkerService();
+      }, 400);
 
-    this.map.on('moveend', () => {
-      this.callMarkerService();
-    });
+      this.map.on('moveend', () => {
+        this.callMarkerService();
+      });
+
+      console.log('Bản đồ đã được khởi tạo thành công');
+    } catch (error) {
+      console.error('Lỗi khởi tạo bản đồ:', error);
+      throw error;
+    }
   }
 
   zoomIn() {
@@ -165,58 +177,74 @@ export class HomePage implements OnInit {
   }
 
   callMarkerService() {
-    const bounds = this.map.getBounds();
-    const sw = bounds.getSouthWest();
-    const ne = bounds.getNorthEast();
+    try {
+      if (!this.map || !this.map.getBounds) {
+        console.warn('Bản đồ chưa được khởi tạo đầy đủ');
+        return;
+      }
 
-    // 1. Lấy danh sách ID các bộ lọc đang bật
-    const selectedIds = this.filterTags
-      .filter((tag) => tag.selected)
-      .map((tag) => tag.id);
+      const bounds = this.map.getBounds();
+      const sw = bounds.getSouthWest();
+      const ne = bounds.getNorthEast();
 
-    // 2. Điều kiện hiển thị tên
-    const currentZoom = this.map.getZoom();
-    const isZoomedIn = currentZoom >= 18;
+      // 1. Lấy danh sách ID các bộ lọc đang bật
+      const selectedIds = this.filterTags
+        .filter((tag) => tag.selected)
+        .map((tag) => tag.id);
 
-    this.markerService
-      .getPlacesInBounds(sw, ne, selectedIds)
-      .subscribe((places) => {
-        // Xóa marker cũ
-        this.markerLayerGroup.clearLayers();
+      console.log('Lọc marker với categories:', selectedIds);
 
-        // TẠO MỘT MẢNG TẠM ĐỂ GOM MARKER (Tối ưu hiệu năng)
-        const markersToAdd: L.Marker[] = [];
+      // 2. Điều kiện hiển thị tên
+      const currentZoom = this.map.getZoom();
+      const isZoomedIn = currentZoom >= 18;
 
-        // Vòng lặp vẽ marker mới
-        places.forEach((place) => {
-          const customIcon = createPin(place.category || 'hotel');
-          const marker = L.marker([place.lat, place.lng], { icon: customIcon });
+      this.markerService.getPlacesInBounds(sw, ne, selectedIds).subscribe({
+        next: (places) => {
+          console.log(`Hiển thị ${places.length} marker trên bản đồ`);
 
-          // TỐI ƯU UX: Đảm bảo khách luôn xem được tên địa điểm
-          if (isZoomedIn) {
-            // Mức 1: Zoom sát (>=18) -> Hiện tên vĩnh viễn ở dưới ghim (như Google Maps)
-            marker.bindTooltip(`<b>${place.name}</b>`, {
-              permanent: true,
-              direction: 'bottom',
-              offset: [0, 5],
-              className: 'map-label-permanent',
+          // Xóa marker cũ
+          this.markerLayerGroup.clearLayers();
+
+          // TẠO MỘT MẢNG TẠM ĐỂ GOM MARKER (Tối ưu hiệu năng)
+          const markersToAdd: L.Marker[] = [];
+
+          // Vòng lặp vẽ marker mới
+          places.forEach((place) => {
+            const customIcon = createPin(place.category || 'hotel');
+            const marker = L.marker([place.lat, place.lng], {
+              icon: customIcon,
             });
-          } else {
-            // Mức 2: Zoom xa (<18) -> Giấu tên cho đỡ rối, nhưng BẤM VÀO GHIM là phải hiện tên (Popup)
-            marker.bindPopup(`<b>${place.name}</b>`, {
-              offset: [0, -20],
-            });
-          }
 
-          // CHỈ PUSH VÀO MẢNG TẠM, KHÔNG ADD LÊN MAP TRONG VÒNG LẶP NÀY
-          markersToAdd.push(marker);
-        });
+            // TỐI ƯU UX: Đảm bảo khách luôn xem được tên địa điểm
+            if (isZoomedIn) {
+              // Mức 1: Zoom sát (>=18) -> Hiện tên vĩnh viễn ở dưới ghim (như Google Maps)
+              marker.bindTooltip(`<b>${place.name}</b>`, {
+                permanent: true,
+                direction: 'bottom',
+                offset: [0, 5],
+                className: 'map-label-permanent',
+              });
+            } else {
+              // Mức 2: Zoom xa (<18) -> Giấu tên cho đỡ rối, nhưng BẤM VÀO GHIM là phải hiện tên (Popup)
+              marker.bindPopup(`<b>${place.name}</b>`, {
+                offset: [0, -20],
+              });
+            }
 
-        // ĐỔ TOÀN BỘ MẢNG LÊN MAP CÙNG MỘT LÚC
-        // Nếu bạn xài MarkerClusterGroup (Gom cụm) thì dùng hàm addLayers(markersToAdd)
-        // Nếu bạn xài LayerGroup thường của Leaflet, thì phải duyệt mảng để add (như bên dưới)
-        markersToAdd.forEach((m) => this.markerLayerGroup.addLayer(m));
+            // CHỈ PUSH VÀO MẢNG TẠM, KHÔNG ADD LÊN MAP TRONG VÒNG LẶP NÀY
+            markersToAdd.push(marker);
+          });
+
+          // ĐỔ TOÀN BỘ MẢNG LÊN MAP CÙNG MỘT LÚC
+          markersToAdd.forEach((m) => this.markerLayerGroup.addLayer(m));
+        },
+        error: (err) => {
+          console.error('Lỗi khi lấy marker:', err);
+        },
       });
+    } catch (error) {
+      console.error('Lỗi trong callMarkerService:', error);
+    }
   }
 
   // Kết hợp trạng thái để gọi service:

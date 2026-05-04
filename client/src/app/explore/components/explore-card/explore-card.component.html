@@ -3,5 +3,15 @@
     <div class="card-title">
       <h2>{{ data?.title }}</h2>
     </div>
+    <div class="card-metadata">
+      <div *ngIf="data?.createdBy" class="creator-info">
+        <ion-icon name="person-circle-outline"></ion-icon>
+        <span>{{ data.createdBy }}</span>
+      </div>
+      <div *ngIf="data?.createdAt" class="date-info">
+        <ion-icon name="calendar-outline"></ion-icon>
+        <span>{{ formatDate(data.createdAt) }}</span>
+      </div>
+    </div>
   </ion-card-content>
 </ion-card>

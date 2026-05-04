@@ -1,4 +1,32 @@
 <div class="ts-container">
+  <!-- Validation Error Banner -->
+  @if (validationErrors.length > 0) {
+    <ion-card class="error-banner">
+      <div class="error-content">
+        <ion-icon name="alert-circle-outline" class="error-icon"></ion-icon>
+        <div class="error-text">
+          <div class="error-title">⚠️ Vui lòng sửa các lỗi sau:</div>
+          @for (error of validationErrors; track error.field) {
+            <div class="error-item">{{ error.message }}</div>
+          }
+        </div>
+      </div>
+    </ion-card>
+  }
+
+  @if (validationWarnings.length > 0) {
+    <ion-card class="warning-banner">
+      <div class="warning-content">
+        <ion-icon name="warning-outline" class="warning-icon"></ion-icon>
+        <div class="warning-text">
+          @for (warning of validationWarnings; track warning.field) {
+            <div class="warning-item">{{ warning.message }}</div>
+          }
+        </div>
+      </div>
+    </ion-card>
+  }
+
   <div class="section">
     <div class="section-title">
       <ion-icon name="calendar-clear-outline"></ion-icon>

@@ -35,7 +35,6 @@ import { tripSummary } from './models/explore.model';
     IonSegment,
     IonSegmentButton,
     IonLabel,
-    IonCard,
     IonIcon,
     ExploreCardComponent,
   ],

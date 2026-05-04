@@ -106,6 +106,9 @@ export const generateSmartItinerary = async (userId, data) => {
       reasoning: generatedData.reasoning || "", // Lưu lại tư duy của AI để debug
       days: generatedData.days,
       createdAt: new Date().toISOString(),
+      userId: userId,
+      // Lưu thông tin người tạo để hiển thị trên card
+      createdBy: data.createdBy || "Người dùng ẩn danh",
       // Lưu lại thông tin gốc khách đã nhập để sau này hiển thị lại nếu cần
       draftSettings: {
         startDate,
@@ -131,7 +134,17 @@ export const getUserItineraries = async (userId) => {
     .orderBy("createdAt", "desc")
     .get();
 
-  return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  return snapshot.docs.map((doc) => {
+    const data = doc.data();
+    return {
+      id: doc.id,
+      title: data.title,
+      tripId: doc.id,
+      createdBy: data.createdBy || "Người dùng ẩn danh",
+      createdAt: data.createdAt,
+      ...data,
+    };
+  });
 };
 
 export const getItineraryById = async (id) => {
@@ -160,6 +173,8 @@ export const getAllItinerariesSummary = async () => {
     itineraries.push({
       id: doc.id,
       title: data.title || "Lịch trình chưa đặt tên",
+      createdBy: data.createdBy || "Người dùng ẩn danh",
+      createdAt: data.createdAt || new Date().toISOString(),
     });
   });
 
