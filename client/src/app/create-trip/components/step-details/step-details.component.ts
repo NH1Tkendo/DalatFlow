@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, ToastController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import {
   walkOutline,
@@ -11,9 +11,12 @@ import {
   speedometerOutline,
   locationOutline,
   checkmarkCircle,
-  businessOutline, // Thêm icon này cho khách sạn
+  businessOutline,
+  arrowForwardOutline,
+  arrowBackOutline,
 } from 'ionicons/icons';
 import { TripStateService } from '../../services/create-trip-state.service';
+import { TripValidationService } from '../../services/trip-validation.service';
 import { MarkerService } from 'src/app/home/services/marker.service';
 
 @Component({
@@ -30,7 +33,7 @@ export class StepDetailsComponent implements OnInit {
   public stepData = {
     isVegetarian: false,
     accommodation: '',
-    pace: 'medium', // 'slow', 'medium', 'fast'
+    pace: 'medium',
     mustVisitPlaces: '',
   };
 
@@ -40,16 +43,20 @@ export class StepDetailsComponent implements OnInit {
     { id: 'fast', name: 'Nhanh', icon: 'flash-outline' },
   ];
 
-  // --- BIẾN TRẠNG THÁI CHO AUTOCOMPLETE ---
   public accoResults: any[] = [];
   public isAccoDropdownOpen: boolean = false;
 
   public mustVisitResults: any[] = [];
   public isMustVisitDropdownOpen: boolean = false;
+  isLoading: boolean = false;
+  validationErrors: any[] = [];
+  validationWarnings: any[] = [];
 
   constructor(
     private tripStateService: TripStateService,
-    public markerService: MarkerService, // Inject MarkerService vào đây
+    private validationService: TripValidationService,
+    private toastCtrl: ToastController,
+    public markerService: MarkerService,
   ) {
     addIcons({
       'walk-outline': walkOutline,
@@ -59,7 +66,9 @@ export class StepDetailsComponent implements OnInit {
       'speedometer-outline': speedometerOutline,
       'location-outline': locationOutline,
       'checkmark-circle': checkmarkCircle,
-      'business-outline': businessOutline, // Đăng ký icon
+      'business-outline': businessOutline,
+      'arrow-forward-outline': arrowForwardOutline,
+      'arrow-back-outline': arrowBackOutline,
     });
   }
 
@@ -184,28 +193,82 @@ export class StepDetailsComponent implements OnInit {
   }
 
   // ==========================================
-  // 3. LƯU VÀ CHUYỂN BƯỚC
+  // 3. LƯU VÀ CHUYỂN BƯỚC - CÓ VALIDATION
   // ==========================================
   async saveAndGo(direction: 'next' | 'prev') {
-    await this.tripStateService.updateTripData({
-      isVegeterian: this.stepData.isVegetarian,
-      accommodations: this.stepData.accommodation
-        ? [this.stepData.accommodation]
-        : [],
-      pace: this.stepData.pace,
-      // Lọc bỏ các phần tử rỗng do dấu phẩy thừa ở cuối chuỗi
-      mustGoPlaces: this.stepData.mustVisitPlaces
-        ? this.stepData.mustVisitPlaces
-            .split(',')
-            .map((s) => s.trim())
-            .filter((s) => s.length > 0)
-        : [],
-    });
-
+    // Validate Step 3 khi gửi
     if (direction === 'next') {
-      this.submitForm.emit();
-    } else {
-      this.prevStep.emit();
+      const validationResult = this.validationService.validateStep3(
+        this.stepData,
+      );
+
+      if (!validationResult.isValid) {
+        const firstError = validationResult.errors.find(
+          (e) => e.severity === 'error',
+        );
+        if (firstError) {
+          const errorMsg = this.validationService.getErrorMessage(firstError);
+          const toast = await this.toastCtrl.create({
+            message: errorMsg.message,
+            duration: 3000,
+            color: errorMsg.color,
+            position: 'top',
+          });
+          await toast.present();
+        }
+        return;
+      }
+
+      // Hiển thị cảnh báo nếu có
+      const warnings = validationResult.errors.filter(
+        (e) => e.severity === 'warning',
+      );
+      if (warnings.length > 0) {
+        const firstWarning = warnings[0];
+        const warningMsg = this.validationService.getErrorMessage(firstWarning);
+        const toast = await this.toastCtrl.create({
+          message: warningMsg.message,
+          duration: 2000,
+          color: warningMsg.color,
+          position: 'top',
+        });
+        await toast.present();
+      }
+    }
+
+    this.isLoading = true;
+
+    try {
+      await this.tripStateService.updateTripData({
+        isVegeterian: this.stepData.isVegetarian,
+        accommodations: this.stepData.accommodation
+          ? [this.stepData.accommodation]
+          : [],
+        pace: this.stepData.pace,
+        mustGoPlaces: this.stepData.mustVisitPlaces
+          ? this.stepData.mustVisitPlaces
+              .split(',')
+              .map((s) => s.trim())
+              .filter((s) => s.length > 0)
+          : [],
+      });
+
+      if (direction === 'next') {
+        this.submitForm.emit();
+      } else {
+        this.prevStep.emit();
+      }
+    } catch (error) {
+      console.error('Lỗi lưu dữ liệu:', error);
+      const toast = await this.toastCtrl.create({
+        message: 'Lỗi lưu dữ liệu. Vui lòng thử lại!',
+        duration: 2000,
+        color: 'danger',
+        position: 'top',
+      });
+      await toast.present();
+    } finally {
+      this.isLoading = false;
     }
   }
 }

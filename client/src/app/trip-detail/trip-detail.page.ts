@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf, NgFor } from '@angular/common';
 import { TripData } from './models/trip-detail.model';
 import {
   IonHeader,
@@ -26,6 +26,8 @@ import { mapOutline } from 'ionicons/icons';
   styleUrls: ['./trip-detail.page.scss'],
   imports: [
     CommonModule,
+    NgIf,
+    NgFor,
     IonHeader,
     IonToolbar,
     IonTitle,

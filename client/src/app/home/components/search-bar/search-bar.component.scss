@@ -3,7 +3,7 @@
   top: 16px;
   left: 16px;
   right: 16px;
-  z-index: 1000;
+  z-index: 500; /* Giảm từ 1000 để map vẫn có thể interactive */
 }
 
 .search-input-wrapper {

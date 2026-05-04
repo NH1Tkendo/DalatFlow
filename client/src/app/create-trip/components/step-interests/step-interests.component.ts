@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ToastController } from '@ionic/angular/standalone';
 import { TripStateService } from '../../services/create-trip-state.service';
+import { TripValidationService } from '../../services/trip-validation.service';
 import { IonicModule } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import {
@@ -12,6 +13,13 @@ import {
   restaurantOutline,
   leafOutline,
   airplaneOutline,
+  personOutline,
+  heartOutline,
+  homeOutline,
+  peopleOutline,
+  walkOutline,
+  bedOutline,
+  businessOutline,
 } from 'ionicons/icons';
 
 @Component({
@@ -49,10 +57,14 @@ export class StepInterestsComponent implements OnInit {
     hasElderlyOrKids: false,
   };
 
-  currentStepIndex: number = 1; // Thêm biến để nhận index từ Input
+  currentStepIndex: number = 1;
+  isLoading: boolean = false;
+  validationErrors: any[] = [];
+  validationWarnings: any[] = [];
 
   constructor(
     private tripStateService: TripStateService,
+    private validationService: TripValidationService,
     private toastCtrl: ToastController,
   ) {
     addIcons({
@@ -62,6 +74,13 @@ export class StepInterestsComponent implements OnInit {
       restaurantOutline,
       leafOutline,
       airplaneOutline,
+      personOutline,
+      heartOutline,
+      homeOutline,
+      peopleOutline,
+      walkOutline,
+      bedOutline,
+      businessOutline,
     });
   }
 
@@ -110,24 +129,69 @@ export class StepInterestsComponent implements OnInit {
     this.stepData.hasElderlyOrKids = !this.stepData.hasElderlyOrKids;
   }
 
-  // Lưu và chuyển bước
+  // Lưu và chuyển bước - CÓ VALIDATION
   async saveAndGo(direction: 'next' | 'prev') {
-    if (direction === 'next' && this.stepData.tags.length === 0) {
-      const toast = await this.toastCtrl.create({
-        message: 'Vui lòng chọn ít nhất 1 phong cách!',
-        duration: 2000,
-        color: 'warning',
-      });
-      await toast.present();
-      return;
+    // Validate Step 2 khi đi tiếp
+    if (direction === 'next') {
+      const validationResult = this.validationService.validateStep2(
+        this.stepData,
+      );
+
+      if (!validationResult.isValid) {
+        const firstError = validationResult.errors.find(
+          (e) => e.severity === 'error',
+        );
+        if (firstError) {
+          const errorMsg = this.validationService.getErrorMessage(firstError);
+          const toast = await this.toastCtrl.create({
+            message: errorMsg.message,
+            duration: 3000,
+            color: errorMsg.color,
+            position: 'top',
+          });
+          await toast.present();
+        }
+        return;
+      }
+
+      // Hiển thị cảnh báo nếu có
+      const warnings = validationResult.errors.filter(
+        (e) => e.severity === 'warning',
+      );
+      if (warnings.length > 0) {
+        const firstWarning = warnings[0];
+        const warningMsg = this.validationService.getErrorMessage(firstWarning);
+        const toast = await this.toastCtrl.create({
+          message: warningMsg.message,
+          duration: 2000,
+          color: warningMsg.color,
+          position: 'top',
+        });
+        await toast.present();
+      }
     }
 
-    await this.tripStateService.updateTripData({
-      tags: this.stepData.tags,
-      members: this.stepData.members,
-      hasElderlyOrKids: this.stepData.hasElderlyOrKids,
-    });
+    this.isLoading = true;
 
-    direction === 'next' ? this.nextStep.emit() : this.prevStep.emit();
+    try {
+      await this.tripStateService.updateTripData({
+        tags: this.stepData.tags,
+        members: this.stepData.members,
+        hasElderlyOrKids: this.stepData.hasElderlyOrKids,
+      });
+
+      direction === 'next' ? this.nextStep.emit() : this.prevStep.emit();
+    } catch (error) {
+      console.error('Lỗi lưu dữ liệu:', error);
+      const toast = await this.toastCtrl.create({
+        message: 'Lỗi lưu dữ liệu. Vui lòng thử lại!',
+        duration: 2000,
+        color: 'danger',
+        position: 'top',
+      });
+      await toast.present();
+    } finally {
+      this.isLoading = false;
+    }
   }
 }

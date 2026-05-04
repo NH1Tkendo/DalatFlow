@@ -1,5 +1,88 @@
 .ts-container {
   padding: 16px 20px; /* Thêm padding ngang để không bị sát viền màn hình */
+
+  // Error and Warning Banners
+  .error-banner,
+  .warning-banner {
+    margin: 16px 0;
+    border-radius: 12px;
+    --background: transparent;
+    box-shadow: none;
+    border: 2px solid;
+  }
+
+  .error-banner {
+    border-color: #ef4444;
+    background: #fef2f2;
+
+    .error-content {
+      display: flex;
+      gap: 12px;
+      padding: 12px;
+
+      .error-icon {
+        color: #ef4444;
+        font-size: 24px;
+        flex-shrink: 0;
+        margin-top: 4px;
+      }
+
+      .error-text {
+        flex: 1;
+
+        .error-title {
+          font-weight: 600;
+          color: #dc2626;
+          margin-bottom: 8px;
+          font-size: 14px;
+        }
+
+        .error-item {
+          font-size: 13px;
+          color: #991b1b;
+          margin-bottom: 4px;
+          line-height: 1.4;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .warning-banner {
+    border-color: #f59e0b;
+    background: #fffbeb;
+
+    .warning-content {
+      display: flex;
+      gap: 12px;
+      padding: 12px;
+
+      .warning-icon {
+        color: #f59e0b;
+        font-size: 24px;
+        flex-shrink: 0;
+        margin-top: 4px;
+      }
+
+      .warning-text {
+        flex: 1;
+
+        .warning-item {
+          font-size: 13px;
+          color: #92400e;
+          margin-bottom: 4px;
+          line-height: 1.4;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+  }
 }
 
 .section {

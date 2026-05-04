@@ -1,5 +1,11 @@
 ion-content {
   --background: #f5f5f5;
+  position: relative;
+
+  // Đảm bảo ion-content có chiều cao đầy đủ
+  ion-content::part(scroll) {
+    overflow: auto;
+  }
 }
 
 .center-wrapper {
@@ -10,9 +16,19 @@ ion-content {
 }
 
 .full-map-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   width: 100%;
   height: 100%;
   z-index: 1;
+
+  // Đảm bảo không có scroll hoặc padding gây lỗi
+  &.leaflet-container {
+    outline: 0;
+  }
 }
 
 // Xóa background mặc định của Leaflet divIcon

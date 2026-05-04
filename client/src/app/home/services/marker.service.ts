@@ -18,22 +18,37 @@ export class MarkerService {
   async loadAllPlacesOnce(): Promise<void> {
     // 1. Có dữ liệu rồi thì ko gọi API
     if (this.isLoaded) {
+      console.log('Dữ liệu đã được tải, sử dụng cache');
       return;
     }
 
     // 2. Gọi tới http://localhost:3000/api/places
     try {
       const url = `${environment.apiUrl}/api/places`;
+      console.log('Đang tải dữ liệu từ:', url);
+
       const response = await lastValueFrom(this.http.get<any>(url));
 
-      if (response && response.data) {
+      if (response && response.data && Array.isArray(response.data)) {
         this.allPlaces = response.data;
-        console.log(this.allPlaces);
+        console.log(`Đã tải ${this.allPlaces.length} địa điểm`, this.allPlaces);
         this.isLoaded = true;
+      } else if (Array.isArray(response)) {
+        // Fallback nếu API trả về array trực tiếp
+        this.allPlaces = response;
+        console.log(
+          `Đã tải ${this.allPlaces.length} địa điểm (format khác)`,
+          this.allPlaces,
+        );
+        this.isLoaded = true;
+      } else {
+        throw new Error('Format dữ liệu không hợp lệ');
       }
     } catch (error) {
       console.error('Lỗi khi tải dữ liệu bản đồ:', error);
       this.allPlaces = [];
+      this.isLoaded = false;
+      throw error;
     }
   }
 

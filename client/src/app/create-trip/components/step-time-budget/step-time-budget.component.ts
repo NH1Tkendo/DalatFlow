@@ -1,10 +1,15 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { addIcons } from 'ionicons';
-import { arrowForwardOutline, leafOutline } from 'ionicons/icons';
+import {
+  arrowForwardOutline,
+  leafOutline,
+  arrowBackOutline,
+} from 'ionicons/icons';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, ToastController } from '@ionic/angular';
 import { TripStateService } from '../../services/create-trip-state.service';
+import { TripValidationService } from '../../services/trip-validation.service';
 
 @Component({
   selector: 'app-step-time-budget',
@@ -28,22 +33,28 @@ export class StepTimeBudgetComponent implements OnInit {
   public displayBudgetText: string = 'Khoảng 5.000.000';
 
   currentStepIndex: number = 2; // Index của step hiện tại
+  isLoading: boolean = false;
+  validationErrors: any[] = [];
+  validationWarnings: any[] = [];
 
-  constructor(private tripStateService: TripStateService) {
+  constructor(
+    private tripStateService: TripStateService,
+    private validationService: TripValidationService,
+    private toastCtrl: ToastController,
+  ) {
     addIcons({
       arrowForwardOutline,
       leafOutline,
+      arrowBackOutline,
     });
   }
 
   ngOnInit() {
-    // 1. Khởi tạo giờ mặc định cho UI đỡ trống (Ví dụ: Hôm nay và Ngày mai)
+    // 1. Khởi tạo ngày mặc định là ngày hiện tại cho cả ngày bắt đầu và kết thúc
     const today = new Date();
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
 
     this.stepData.startDate = today.toISOString();
-    this.stepData.endDate = tomorrow.toISOString();
+    this.stepData.endDate = today.toISOString();
     this.stepData.arriveTime = '1970-01-01T08:00:00'; // Chỉ lấy phần giờ (08:00)
     this.stepData.leaveTime = '1970-01-01T14:00:00'; // Chỉ lấy phần giờ (14:00)
 
