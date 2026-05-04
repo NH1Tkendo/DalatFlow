@@ -175,15 +175,6 @@ export class TripValidationService {
   }): StepValidationResult {
     const errors: ValidationError[] = [];
 
-    // Kiểm tra loại lưu trú
-    if (!data.accommodation || data.accommodation.trim() === '') {
-      errors.push({
-        field: 'accommodation',
-        message: 'Vui lòng chọn loại lưu trú',
-        severity: 'error',
-      });
-    }
-
     // Kiểm tra tốc độ du lịch
     const validPaces = ['slow', 'medium', 'fast'];
     if (!data.pace || !validPaces.includes(data.pace)) {
@@ -191,6 +182,15 @@ export class TripValidationService {
         field: 'pace',
         message: 'Vui lòng chọn tốc độ du lịch hợp lệ',
         severity: 'error',
+      });
+    }
+
+    // Cảnh báo nếu không có nơi lưu trú
+    if (!data.accommodation || data.accommodation.trim() === '') {
+      errors.push({
+        field: 'accommodation',
+        message: 'Không có loại lưu trú - AI sẽ tự chọn nơi lưu trú cho bạn',
+        severity: 'warning',
       });
     }
 

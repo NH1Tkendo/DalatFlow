@@ -29,6 +29,8 @@ import {
   optionsOutline,
   diamondOutline,
   airplaneOutline,
+  calendarClearOutline,
+  walletOutline,
 } from 'ionicons/icons';
 
 import { StepTimeBudgetComponent } from './components/step-time-budget/step-time-budget.component';
@@ -82,6 +84,8 @@ export class CreateTripPage implements OnInit {
       optionsOutline,
       diamondOutline,
       airplaneOutline,
+      calendarClearOutline,
+      walletOutline,
     });
   }
 
