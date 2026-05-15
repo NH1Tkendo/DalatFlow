@@ -1,6 +1,8 @@
+Here is the `README.md` for the DalatFlow project, following your specified structure and guidelines:
+
 # 🏔️ DalatFlow - AI-Powered Da Lat Itinerary Planner
 
-<div align="center">
+## 1. Badges
 
 [![Angular](https://img.shields.io/badge/Angular-20.0-DD0031?style=flat-square&logo=angular)](https://angular.io/)
 [![Ionic](https://img.shields.io/badge/Ionic-8.0-3880FF?style=flat-square&logo=ionic)](https://ionicframework.com/)
@@ -10,159 +12,111 @@
 [![Leaflet](https://img.shields.io/badge/Leaflet-Maps-199900?style=flat-square&logo=leaflet)](https://leafletjs.com/)
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
 
-_Khám phá thành phố ngàn hoa một cách thông minh với AI_
+## 2. Project Title & Description
 
-[Tính Năng](#-tính-năng-chính) • [Cài Đặt](#-hướng-dẫn-cài-đặt) • [Sử Dụng](#-hướng-dẫn-sử-dụng) • [Tài Nguyên](#-tài-nguyên-phát-triển)
+**DalatFlow** is an intelligent cross-platform application designed to revolutionize travel planning in Da Lat, Vietnam. Leveraging **Artificial Intelligence**, it automates and personalizes your trip planning, transforming how you discover the 'City of Eternal Spring'. This application provides an interactive experience for crafting unique and optimized itineraries based on your preferences, budget, and time.
 
-</div>
+Key features include:
 
----
+*   **AI-Powered Recommendation Engine**: Utilizes Google Generative AI to suggest personalized itineraries, optimized for time, interests, and real-time conditions.
+*   **Interactive Map Interface**: Explore Da Lat's attractions on a dynamic map powered by Leaflet, featuring smart clustering and comprehensive search/filter capabilities.
+*   **Seamless Itinerary Management**: Create, edit, save, and share your travel plans with ease, backed by Firebase Cloud synchronization.
+*   **Cross-Platform Accessibility**: Available as a Progressive Web App (PWA) for web browsers and as native mobile applications for iOS/Android via Capacitor.
+*   **Secure Authentication**: Integrated with Firebase Authentication for secure user logins and data management.
+*   **Offline Support**: Ensures continuous access to your saved itineraries and map data through Ionic Storage, with automatic synchronization upon connection.
 
-## 📱 Giới Thiệu
+## 3. Tech Stack
 
-**DalatFlow** là một ứng dụng di động (web/mobile) thông minh cho phép bạn lên kế hoạch du lịch tại thành phố Đà Lạt một cách tự động sử dụng công nghệ **Artificial Intelligence**.
+DalatFlow is built using a modern full-stack architecture, combining robust frontend and backend technologies:
 
-Thay vì lên kế hoạch thủ công, DalatFlow sẽ giúp bạn:
+**Client-Side (Frontend)**:
 
-- 🤖 Tự động gợi ý lịch trình du lịch dựa trên sở thích của bạn
-- 🗺️ Hiển thị các địa điểm du lịch trên bản đồ tương tác
-- 📅 Tối ưu hóa thứ tự tham quan dựa trên vị trí địa lý
-- 💾 Lưu trữ lịch trình để sử dụng sau
-- ⏱️ Tính toán thời gian di chuyển giữa các điểm
+*   **Framework**: [Angular 20.0](https://angular.io/)
+*   **Mobile UI**: [Ionic 8.0](https://ionicframework.com/)
+*   **Language**: [TypeScript](https://www.typescriptlang.org/)
+*   **Cross-Platform**: [Capacitor](https://capacitorjs.com/) (for iOS/Android deployment)
+*   **Mapping**: [Leaflet](https://leafletjs.com/) with `leaflet.markercluster`
+*   **State Management/Reactive Programming**: [RxJS](https://rxjs.dev/)
+*   **Authentication & Data Storage**: [Firebase Client SDK](https://firebase.google.com/docs/web/setup) via `@angular/fire`
+*   **Offline Data**: [Ionic Storage](https://ionicframework.com/docs/angular/storage)
+*   **HTTP Client**: `@angular/common/http`
 
----
+**Server-Side (Backend)**:
 
-## 🌟 Tính Năng Chính
+*   **Runtime**: [Node.js](https://nodejs.org/)
+*   **Web Framework**: [Express.js 4.18](https://expressjs.com/)
+*   **AI Integration**: [Google Generative AI](https://ai.google.dev/) (`@google/genai`)
+*   **Authentication & Database**: [Firebase Admin SDK](https://firebase.google.com/docs/admin/setup)
+*   **Environment Variables**: [Dotenv](https://www.npmjs.com/package/dotenv)
+*   **CORS Management**: [CORS](https://www.npmjs.com/package/cors)
+*   **Process Management**: [PM2](https://pm2.keymetrics.io/)
 
-### 🤖 **AI-Powered Recommendation Engine**
+## 4. Architecture
 
-- Sử dụng Google Generative AI để gợi ý lịch trình cá nhân hóa
-- Tối ưu hóa dựa trên thời gian, sở thích và thời tiết
+DalatFlow employs a classic client-server architecture with a monorepo structure, separating the frontend and backend into distinct directories (`client/` and `server/`).
 
-### 🗺️ **Interactive Map Interface**
+*   **Client (Frontend)**:
+    *   Developed with **Angular** and **Ionic**, forming a Progressive Web App (PWA). This allows it to run seamlessly on web browsers (desktop and mobile) and be packaged as native mobile applications for iOS and Android using **Capacitor**.
+    *   Manages the user interface, interactive map (powered by **Leaflet**), user input for itinerary creation, and display of search results.
+    *   Communicates with the backend API for data fetching, itinerary generation requests, and user authentication, primarily utilizing **Firebase Client SDK** for user management and `@angular/common/http` for custom API calls.
+*   **Server (Backend)**:
+    *   Built on **Node.js** with the **Express.js** framework, it provides a RESTful API.
+    *   Handles core business logic, including:
+        *   User authentication and authorization (via **Firebase Admin SDK**).
+        *   Storing and retrieving itinerary data from Firebase.
+        *   Processing requests for AI-powered itinerary generation by interacting with **Google Generative AI**.
+        *   Managing place data and optimizing routes.
+    *   Includes middleware for authentication, request validation, and CORS configuration.
 
-- Xem tất cả các điểm du lịch trên bản đồ tương tác (Leaflet)
-- Clustering thông minh cho dễ dàng điều hướng
-- Tìm kiếm và lọc địa điểm theo danh mục
+This separation ensures a scalable, maintainable, and flexible application where the frontend focuses on user experience and the backend on data management and complex logic.
 
-### 📋 **Itinerary Management**
+## 5. Installation
 
-- Tạo, chỉnh sửa, xóa lịch trình
-- Sao lưu lịch trình trên Firebase Cloud
-- Chia sẻ lịch trình với bạn bè
+Follow these steps to set up and run DalatFlow locally on your machine.
 
-### 📱 **Cross-Platform Support**
+### Prerequisites
 
-- Web App: Chạy trên trình duyệt desktop/mobile
-- Mobile App: Hỗ trợ iOS/Android thông qua Capacitor
+Before you begin, ensure you have the following installed:
 
-### 🔐 **Authentication & Data Security**
+*   **Node.js**: v18.0.0 or higher. [Download here](https://nodejs.org/)
+*   **npm** or **Yarn**: A package manager (npm comes with Node.js).
+*   **Git**: For cloning the repository.
 
-- Đăng nhập an toàn với Firebase Authentication
-- Mã hóa dữ liệu và đồng bộ cloud
+Verify your installations:
 
-### 🌍 **Offline Support**
-
-- Ionic Storage cho offline caching
-- Tự động đồng bộ khi có kết nối
-
----
-
-## 📸 Ảnh Chụp Màn Hình
-
-### Giao Diện Bản Đồ
-
-```
-┌─────────────────────────────────────────┐
-│  📍 DalatFlow Map                    [≡] │
-├─────────────────────────────────────────┤
-│                                         │
-│    🗺️  [Bản đồ tương tác với marker]    │
-│        [Hiển thị các điểm du lịch]      │
-│        [Clustering thông minh]          │
-│                                         │
-└─────────────────────────────────────────┘
-```
-
-### Tạo Lịch Trình
-
-```
-┌─────────────────────────────────────────┐
-│  ✨ Create Itinerary                 [✓] │
-├─────────────────────────────────────────┤
-│                                         │
-│  📅 Date: [Select Date]                 │
-│  ⏰ Duration: [1-7 days]                 │
-│  💭 Interests: [Tourism][Adventure]     │
-│  👥 Budget: [Low][Medium][High]         │
-│                                         │
-│  [🤖 Generate with AI]                  │
-│                                         │
-└─────────────────────────────────────────┘
+```bash
+node --version # e.g., v18.x.x
+npm --version  # e.g., 9.x.x
+git --version  # e.g., 2.x.x
 ```
 
-### Danh Sách Lịch Trình
+### Step 1: Clone the Repository
 
-```
-┌─────────────────────────────────────────┐
-│  📋 My Itineraries                   [+] │
-├─────────────────────────────────────────┤
-│                                         │
-│  [Day 1: Mountain Adventure]         [→] │
-│  [Day 2-3: City Exploration]        [→] │
-│  [Weekend Getaway]                  [→] │
-│                                         │
-└─────────────────────────────────────────┘
-```
+Clone the project from GitHub and navigate into its directory:
 
-> **Lưu ý:** Các ảnh thực tế sẽ được cập nhật sau khi ứng dụng được triển khai
-
----
-
-## 🚀 Hướng Dẫn Cài Đặt
-
-### ✅ Yêu Cầu Tiên Quyết
-
-- **Node.js**: v18.0.0 hoặc cao hơn ([Tải về](https://nodejs.org/))
-- **npm** hoặc **yarn**: Công cụ quản lý gói
-- **Git**: Để clone repository
-- **VS Code** (tùy chọn): Trình soạn thảo code
-
-Kiểm tra phiên bản:
-
-```powershell
-node --version    # v18.x.x
-npm --version     # 9.x.x
-git --version     # 2.x.x
-```
-
-### 📥 Bước 1: Clone Repository
-
-```powershell
-# Clone dự án
-git clone https://github.com/your-username/DalatFlow.git
-
-# Vào thư mục dự án
+```bash
+git clone https://github.com/NH1Tkendo/DalatFlow.git
 cd DalatFlow
 ```
 
-### ⚙️ Bước 2: Cấu Hình Environment
+### Step 2: Configure Environment Variables
 
-#### **Server Configuration (.env)**
+#### Server Configuration (`server/.env`)
 
-Tạo file `.env` trong thư mục `server`:
+Navigate to the `server` directory and create a `.env` file for environment variables:
 
 ```bash
 cd server
+touch .env
 ```
 
-Tạo file `.env`:
+Populate the `.env` file with your credentials:
 
 ```env
-# Firebase Configuration
+# Firebase Configuration for Admin SDK
 FIREBASE_PROJECT_ID=your-firebase-project-id
-FIREBASE_PRIVATE_KEY=your-firebase-private-key
-FIREBASE_CLIENT_EMAIL=your-firebase-client-email
+FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n" # Ensure newlines are correctly formatted
+FIREBASE_CLIENT_EMAIL=your-firebase-client-email@your-project-id.iam.gserviceaccount.com
 
 # Google Generative AI
 GOOGLE_API_KEY=your-google-generative-ai-key
@@ -171,377 +125,157 @@ GOOGLE_API_KEY=your-google-generative-ai-key
 PORT=3000
 NODE_ENV=development
 
-# CORS Configuration
+# CORS Configuration - Set to your client's URL
 CLIENT_URL=http://localhost:4200
 ```
 
-**Cách lấy các key:**
+**How to get these keys**:
 
-1. **Firebase Keys**: Truy cập [Firebase Console](https://console.firebase.google.com/)
-   - Tạo hoặc chọn dự án
-   - Settings → Service Accounts → Generate new private key
-   - Copy giá trị vào file `.env`
+1.  **Firebase Admin SDK Keys**:
+    *   Go to the [Firebase Console](https://console.firebase.google.com/).
+    *   Select your project or create a new one.
+    *   Navigate to Project settings > Service accounts.
+    *   Click "Generate new private key" to download a JSON file.
+    *   Extract `project_id`, `private_key`, and `client_email` from the JSON file and paste them into your `.env`. Be careful with the `private_key` formatting, ensuring newline characters (`\n`) are preserved.
+2.  **Google Generative AI Key**:
+    *   Visit [Google AI Studio](https://aistudio.google.com/).
+    *   Create a new API Key.
+    *   Copy the key and assign it to `GOOGLE_API_KEY`.
 
-2. **Google Generative AI Key**: Truy cập [Google AI Studio](https://aistudio.google.com/)
-   - Tạo API Key mới
-   - Copy vào `GOOGLE_API_KEY`
+#### Client Configuration (`client/src/environments/environment.ts`)
 
-#### **Client Configuration (environment.ts)**
-
-File `client/src/environments/environment.ts`:
+Open the `client/src/environments/environment.ts` file and update the `firebaseConfig` and `apiUrl` with your project's details:
 
 ```typescript
 export const environment = {
   production: false,
   firebaseConfig: {
-    apiKey: "YOUR_FIREBASE_API_KEY",
+    apiKey: "YOUR_FIREBASE_API_KEY", // From Firebase Project settings > General > Your apps
     authDomain: "your-project.firebaseapp.com",
     projectId: "your-project-id",
     storageBucket: "your-project.appspot.com",
     messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
     appId: "1:YOUR_APP_ID:web:YOUR_WEB_APP_ID",
   },
-  apiUrl: "http://localhost:3000",
+  apiUrl: "http://localhost:3000", // Should match your server's PORT
 };
 ```
 
-### 📦 Bước 3: Cài Đặt Dependencies
+You can find the `firebaseConfig` details in your Firebase project settings under "Your apps" for the Web app.
 
-#### **Server Dependencies**
+### Step 3: Install Dependencies
 
-```powershell
-# Vẫn trong thư mục server
-cd server
+#### Server Dependencies
 
-# Cài đặt npm packages
-npm install
+From the `server` directory:
 
-# Hoặc sử dụng yarn
-yarn install
+```bash
+npm install # or yarn install
 ```
 
-Các package chính:
+#### Client Dependencies
 
-- `express`: Web framework
-- `cors`: Cross-origin requests
-- `firebase-admin`: Firebase integration
-- `@google/genai`: AI recommendation engine
-- `dotenv`: Environment configuration
+Open a new terminal, navigate to the `client` directory:
 
-#### **Client Dependencies**
-
-```powershell
-# Mở terminal mới, vào thư mục client
-cd client
-
-# Cài đặt npm packages
-npm install
-
-# Hoặc sử dụng yarn
-yarn install
+```bash
+cd ../client
+npm install # or yarn install
 ```
 
-Các package chính:
+### Step 4: Run the Applications
 
-- `@angular/core`: Frontend framework
-- `@ionic/angular`: Mobile UI components
-- `leaflet`: Interactive maps
-- `firebase`: Authentication & database
-- `rxjs`: Reactive programming
+#### Start the Server (Node.js Backend)
 
-### 🎯 Bước 4: Khởi Chạy Ứng Dụng
+From the `server` directory:
 
-#### **Khởi Chạy Server (Node.js Backend)**
-
-```powershell
-# Mở terminal (PowerShell)
-cd D:\DalatFlow\server
-
-# Chạy server ở chế độ development
+```bash
 npm run dev
-
-# Output mong đợi:
-# Server is running on http://localhost:3000
 ```
 
-Server sẽ:
+You should see output indicating the server is running, typically on `http://localhost:3000`.
 
-- Lắng nghe trên `http://localhost:3000`
-- Hỗ trợ CORS cho `http://localhost:4200`
-- Kết nối tới Firebase
-- Cung cấp AI recommendation endpoint
+#### Start the Client (Angular/Ionic Frontend)
 
-#### **Khởi Chạy Client (Angular/Ionic Frontend)**
+Open another terminal, navigate to the `client` directory:
 
-```powershell
-# Mở terminal mới
-cd D:\DalatFlow\client
-
-# Chạy Angular development server
+```bash
 npm start
-
-# Output mong đợi:
-# ✔ Compiled successfully
-# Local:   http://localhost:4200/
 ```
 
-Client sẽ:
-
-- Chạy trên `http://localhost:4200`
-- Tự động reload khi bạn thay đổi code
-- Kết nối tới server backend tại `http://localhost:3000`
-
-### ✅ Bước 5: Xác Minh Cài Đặt
-
-Mở trình duyệt và truy cập:
-
-- **Client**: http://localhost:4200
-- **Server API**: http://localhost:3000
-
-Bạn sẽ thấy:
-
-- ✅ Ứng dụng Angular/Ionic load thành công
-- ✅ Bản đồ Leaflet hiển thị
-- ✅ Có thể đăng nhập với Firebase
-- ✅ Có thể tạo lịch trình mới
-
----
-
-## 💻 Hướng Dẫn Sử Dụng
-
-### 🔐 Đăng Nhập & Đăng Ký
-
-1. Nhấn **"Login"** hoặc **"Sign Up"**
-2. Nhập email và password
-3. Hoặc đăng nhập bằng Google/Facebook
-
-### 🗺️ Khám Phá Bản Đồ
-
-1. Màn hình chính hiển thị bản đồ Đà Lạt
-2. Click vào marker để xem chi tiết địa điểm
-3. Sử dụng thanh tìm kiếm để lọc địa điểm
-4. Zoom in/out bằng scroll mouse
-
-### ✨ Tạo Lịch Trình AI
-
-1. Nhấn nút **"+"** hoặc **"Create Itinerary"**
-2. Chọn các tham số:
-   - 📅 Ngày khởi hành
-   - ⏰ Số ngày du lịch
-   - 💭 Sở thích (Mountain, Culture, Adventure, Food, etc.)
-   - 👥 Số người
-   - 💰 Ngân sách
-
-3. Nhấn **"Generate with AI"**
-4. Chờ AI tạo lịch trình tối ưu
-5. Review và chỉnh sửa nếu cần
-6. Lưu lịch trình
-
-### 📍 Quản Lý Lịch Trình
-
-- **Xem**: Nhấn vào lịch trình để xem chi tiết
-- **Chỉnh sửa**: Sửa đổi địa điểm, thời gian
-- **Xóa**: Xóa lịch trình không cần thiết
-- **Chia sẻ**: Sao chép link để chia sẻ
-- **Xuất**: Tải về dạng PDF/Excel
-
----
-
-## 🛠️ Cấu Trúc Dự Án
-
-```
-DalatFlow/
-├── client/                    # Angular/Ionic Frontend
-│   ├── src/
-│   │   ├── app/              # Angular components & services
-│   │   ├── assets/           # Images, icons, static files
-│   │   ├── environments/      # Firebase config
-│   │   └── theme/            # Ionic styling
-│   ├── package.json
-│   └── angular.json
-│
-├── server/                    # Node.js/Express Backend
-│   ├── controllers/          # API request handlers
-│   ├── services/             # Business logic
-│   ├── routes/               # API endpoints
-│   ├── middleware/           # Authentication, validation
-│   ├── config/               # Configuration files
-│   ├── server.js             # Entry point
-│   └── package.json
-│
-└── README.md                  # This file
-```
-
----
-
-## 📚 Tài Nguyên Phát Triển
-
-### API Documentation
-
-**Base URL**: `http://localhost:3000`
-
-#### Itinerary Endpoints
-
-```
-POST   /api/itineraries           # Tạo lịch trình mới
-GET    /api/itineraries           # Lấy danh sách lịch trình
-GET    /api/itineraries/:id       # Lấy chi tiết lịch trình
-PUT    /api/itineraries/:id       # Cập nhật lịch trình
-DELETE /api/itineraries/:id       # Xóa lịch trình
-```
-
-#### AI Recommendation Endpoint
-
-```
-POST   /api/generate-itinerary
-Body: {
-  date: "2026-05-15",
-  duration: 3,
-  interests: ["nature", "culture", "food"],
-  budget: "medium"
-}
-```
-
-### Thư Viện & Framework
-
-| Thư Viện       | Phiên Bản | Mục Đích             |
-| -------------- | --------- | -------------------- |
-| **Angular**    | 20.0      | Frontend framework   |
-| **Ionic**      | 8.0       | Mobile UI components |
-| **Leaflet**    | 1.9.4     | Interactive maps     |
-| **Firebase**   | 12.11     | Auth & Database      |
-| **Express**    | 4.18      | Backend API          |
-| **TypeScript** | Latest    | Type-safe code       |
-| **RxJS**       | 7.8       | Reactive programming |
-
-### Tài Liệu Tham Khảo
-
-- [Angular Documentation](https://angular.io/docs)
-- [Ionic Framework](https://ionicframework.com/docs)
-- [Leaflet Map Library](https://leafletjs.com/)
-- [Firebase Guides](https://firebase.google.com/docs)
-- [Express.js Guide](https://expressjs.com/)
-- [Google Generative AI](https://ai.google.dev/)
-
----
-
-## 🔧 Lệnh Hữu Ích
-
-### Server Commands
-
-```powershell
-# Development mode (auto-reload)
-npm run dev
-
-# Production mode
-npm run start
-
-# Stop server
-npm run stop
-
-# Install dependencies
-npm install
-```
-
-### Client Commands
-
-```powershell
-# Start development server
-npm start
-
-# Build for production
-npm run build
-
-# Run tests
-npm test
-
-# Run linter
-npm run lint
-
-# Build for Capacitor (mobile)
-npm run build
-# npx cap sync
-```
-
----
-
-## 🐛 Troubleshooting
-
-### Problem: Server không kết nối được Firebase
-
-**Solution:**
-
-1. Kiểm tra file `.env` có đầy đủ Firebase keys
-2. Đảm bảo Firebase project active
-3. Kiểm tra internet connection
-
-### Problem: Client không kết nối được Server
-
-**Solution:**
-
-1. Kiểm tra server đang chạy trên port 3000
-2. Kiểm tra `apiUrl` trong `environment.ts` đúng
-3. Kiểm tra CORS configuration trong server
-
-### Problem: Bản đồ không hiển thị
-
-**Solution:**
-
-1. Kiểm tra Leaflet CSS được load: `node_modules/leaflet/dist/leaflet.css`
-2. Refresh trình duyệt (Ctrl+Shift+R)
-3. Kiểm tra console có lỗi
-
-### Problem: npm install thất bại
-
-**Solution:**
-
-```powershell
-# Clear npm cache
-npm cache clean --force
-
-# Delete node_modules
-rm -Recurse -Force node_modules
-
-# Reinstall
-npm install
-```
-
----
-
-## 🤝 Đóng Góp
-
-Chúng tôi chào đón mọi đóng góp! Để đóng góp:
-
-1. Fork repository
-2. Tạo branch mới (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Mở Pull Request
-
----
-
-## 📄 Giấy Phép
-
-Dự án này được cấp phép dưới [MIT License](LICENSE)
-
----
-
-## 📧 Liên Hệ & Hỗ Trợ
-
-- **Email**: support@dalatflow.com
-- **Issues**: [GitHub Issues](https://github.com/your-username/DalatFlow/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/your-username/DalatFlow/discussions)
-
----
-
-## 🙏 Cảm Ơn
-
-Cảm ơn tất cả những người đã đóng góp và hỗ trợ cho dự án DalatFlow!
-
-**Built with ❤️ for Da Lat Lovers**
-
-<div align="center">
-
-**[Lên Đầu](#-dalatflow---ai-powered-da-lat-itinerary-planner)**
-
-</div>
+This will launch the Angular development server. Once compiled, the application will be accessible in your browser at `http://localhost:4200`.
+
+### Step 5: Verify Installation
+
+Open your web browser and navigate to:
+
+*   **Client**: `http://localhost:4200`
+*   **Server API**: `http://localhost:3000` (You might see a simple message indicating the server is running, or a 404 for a base route).
+
+You should see the DalatFlow application loaded, with the map interface visible and functionality available after authentication.
+
+## 6. Usage
+
+DalatFlow is designed to be intuitive. Here's how to get started:
+
+### Authenticate (Login & Register)
+
+1.  Upon launching the app, you'll be prompted to **"Login"** or **"Sign Up"**.
+2.  You can register with your email and password or use third-party providers like Google or Facebook (if configured).
+3.  Once authenticated, you'll gain access to all features.
+
+### Explore the Interactive Map
+
+1.  The main screen displays an interactive map of Da Lat.
+2.  **Click on markers** to view details about various tourist attractions.
+3.  Use the **search bar** to find specific places or filter by category.
+4.  **Zoom in/out** using your mouse scroll wheel or pinch gestures on mobile to explore different areas.
+
+### Create an AI-Powered Itinerary
+
+1.  Navigate to the **"Create Itinerary"** section (often indicated by a `+` button or a specific tab).
+2.  Provide your preferences:
+    *   **Departure Date**: When you plan to start your trip.
+    *   **Duration**: How many days you plan to travel.
+    *   **Interests**: Select tags that represent your preferences (e.g., "Nature," "Culture," "Adventure," "Food," "Relaxation").
+    *   **Number of People**: The size of your travel group.
+    *   **Budget**: Your preferred spending level (e.g., "Low," "Medium," "High").
+3.  Click the **"Generate with AI"** button. The AI will process your inputs to suggest an optimized itinerary.
+4.  **Review and Edit**: The generated itinerary will be displayed. You can review the suggested places, order, and times. Feel free to make adjustments to tailor it further.
+5.  **Save Itinerary**: Once satisfied, save your itinerary for future access.
+
+### Manage Your Saved Itineraries
+
+1.  Go to the **"My Itineraries"** or **"Saved Trips"** section.
+2.  **View**: Click on any saved itinerary to see its detailed breakdown, including daily plans and locations on a map.
+3.  **Edit**: Modify existing itineraries to add, remove, or reorder places and adjust timings.
+4.  **Delete**: Remove itineraries you no longer need.
+5.  **Share**: Generate a shareable link to send your itinerary to friends and family.
+6.  **Export**: Download your itinerary in formats like PDF or Excel for offline use or printing.
+
+## 7. Contributing
+
+We welcome contributions to DalatFlow! If you'd like to contribute, please follow these guidelines:
+
+1.  **Fork** the repository on GitHub.
+2.  **Clone** your forked repository to your local machine.
+3.  **Create a new branch** for your feature or bug fix:
+    ```bash
+    git checkout -b feature/your-amazing-feature
+    # or
+    git checkout -b bugfix/resolve-issue-xyz
+    ```
+4.  **Make your changes** and ensure they adhere to the project's coding standards.
+5.  **Test your changes** thoroughly.
+6.  **Commit your changes** with a clear and descriptive message:
+    ```bash
+    git commit -m 'feat: Add amazing feature'
+    # or
+    git commit -m 'fix: Resolve issue with itinerary display'
+    ```
+7.  **Push your branch** to your forked repository:
+    ```bash
+    git push origin feature/your-amazing-feature
+    ```
+8.  **Open a Pull Request** against the `main` branch of the original DalatFlow repository, describing your changes in detail.
+
+Thank you for your interest in making DalatFlow better!
